@@ -1,11 +1,10 @@
 const io = require('socket.io')();
+const uuidv1 = require('uuid/v1');
 const messageHandler = require('./handlers/message.handler');
 
 console.log('Server Started! 🚀')
 
-let currentUserId = 2;
 const users = {};
-
 
 function createUserAvatarUrl() {
   const rand1 = Math.round(Math.random() * 200 + 100);
@@ -13,17 +12,27 @@ function createUserAvatarUrl() {
   return `https://placeimg.com/${rand1}/${rand2}/any`;
 }
 
+function createUsersOnline() {
+  const values = Object.values(users);
+  const onlyWithUserNames = values.filter(u => u.username !== undefined);
+  return onlyWithUserNames;
+}
+
 io.on('connection', socket => {
   console.log('a user connected!');
   //console.log('users: ', users)
   //console.log(socket.id);
-  users[socket.id] = { userId: currentUserId++ };
+  users[socket.id] = { userId: uuidv1() };
   socket.on('join', (username, drink) => {
     users[socket.id].username = username;
     users[socket.id].drink = drink;
     console.log(`username: ${username}, Drink: ${drink}`);
     users[socket.id].avatar = createUserAvatarUrl();
     messageHandler.handleMessage(socket, users);
+  })
+  socket.on('disconnect', () => {
+    delete users[socket.id];
+    io.emit('action', {type: 'users_online', data: createUsersOnline() })
   })
   socket.on('action', action => {
     switch(action.type) {
@@ -36,6 +45,7 @@ io.on('connection', socket => {
         users[socket.id].username = action.inputName;
         users[socket.id].drink = action.inputDrink;
         users[socket.id].avatar = createUserAvatarUrl();
+        io.emit('action', { type: 'users_online', data: createUsersOnline() }) //io emit includes sender, socket emit only sends to others
         break;
     }
   })

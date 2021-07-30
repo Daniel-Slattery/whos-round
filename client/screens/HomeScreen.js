@@ -3,6 +3,7 @@ import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, Touchabl
 import io from 'socket.io-client';
 import { GiftedChat } from "react-native-gifted-chat";
 import JoinScreen from './JoinScreen';
+import FriendListScreen from './FriendListScreen';
 
 const beerImage = require('../assets/beer.svg');
 
@@ -41,6 +42,7 @@ export default function HomeScreen() {
         <View>
           <Text style={{marginTop: 50, fontWeight: 'bold', fontSize: 30, color: 'green'}}>List of Users goes here</Text>
         </View>
+        <FriendListScreen />
 
         <GiftedChat
           renderUsernameOnMessage
