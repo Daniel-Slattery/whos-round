@@ -8,16 +8,20 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+
 
 const pubImage = require('../assets/pub.svg');
 
-const JoinScreen = ({enterPub}) => {
+const JoinScreen = ({ navigation }) => {
+
+  const dispatch = useDispatch();
 
   const [userName, setUsername] = useState('');
   const [userDrink, setUserDrink] = useState('');
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'beige'}}>
       <Image style={{flex: 1}} source={pubImage} resizeMode='contain' style={{width: 300, height: 300}}/>
       <View style={{ flex: 1, justifyContent: 'space-around'}}>
         <TextInput
@@ -32,9 +36,15 @@ const JoinScreen = ({enterPub}) => {
           onChangeText={text => setUserDrink(text)}
           value={userDrink}
         />
-        <Button title='Enter Pub' onPress={() => enterPub(userName, userDrink)} />
+        <Button title='Enter Pub'
+          onPress={() => {
+            // enterPub(userName, userDrink)} // replaced with redux dispatch
+            dispatch({type: 'server/join', inputName: userName, inputDrink: userDrink});
+            navigation.navigate('App');
+          }}
+        />
       </View>
-      {Platform.OS === 'ios' && <KeyboardAvoidingView behavior="padding" />}
+      <KeyboardAvoidingView behavior="padding" />
     </View>
   )
 }

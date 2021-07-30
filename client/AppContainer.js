@@ -6,10 +6,12 @@ import JoinScreen from './screens/JoinScreen';
 const AppStack = createStackNavigator({ Home: HomeScreen });
 
 export default createAppContainer(
-  createSwitchNavigator({
-    Ap: AppStack,
+  createSwitchNavigator(
+  {
+    App: AppStack,
     Join: JoinScreen
-  }, {
+  },
+  {
     initialRouteName: "Join"
   })
 )

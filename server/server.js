@@ -15,16 +15,29 @@ function createUserAvatarUrl() {
 
 io.on('connection', socket => {
   console.log('a user connected!');
-  console.log('users: ', users)
-  console.log(socket.id);
+  //console.log('users: ', users)
+  //console.log(socket.id);
   users[socket.id] = { userId: currentUserId++ };
   socket.on('join', (username, drink) => {
-    console.log('username', username)
     users[socket.id].username = username;
     users[socket.id].drink = drink;
-    console.log('drink', drink)
+    console.log(`username: ${username}, Drink: ${drink}`);
     users[socket.id].avatar = createUserAvatarUrl();
     messageHandler.handleMessage(socket, users);
+  })
+  socket.on('action', action => {
+    switch(action.type) {
+      case 'server/hello':
+        console.log('Got hello event', action.data);
+        socket.emit('action', {type: 'message', data: 'Good day from the server!' });
+        break;
+      case 'server/join':
+        console.log(`Got Join Event, name: ${action.inputName}, drink: ${action.inputDrink}` );
+        users[socket.id].username = action.inputName;
+        users[socket.id].drink = action.inputDrink;
+        users[socket.id].avatar = createUserAvatarUrl();
+        break;
+    }
   })
 })
 

@@ -32,7 +32,6 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container} >
-    {hasJoined ? (
       <View style={{alignItems: 'center', margin: 20}}>
         <Text style={styles.headerText}>🍻 Welcome to the pub 🍺 </Text>
         <TouchableOpacity onPress={() => alert("Finished Drink!!")}>
@@ -52,10 +51,9 @@ export default function HomeScreen() {
           }}
         />
       </View>
-    ) : (
-      <JoinScreen enterPub={enterPub} />
-    )}
-    {Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />}
+    {
+      Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
+    }
   </View>
   );
 }
