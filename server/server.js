@@ -25,13 +25,14 @@ io.on('connection', socket => {
   socket.on('join', (username, drink) => {
     users[socket.id].username = username;
     users[socket.id].drink = drink;
+    users[socket.id].isFinished = "Drinking  🍺";
     console.log(`username: ${username}, Drink: ${drink}`);
     users[socket.id].avatar = createUserAvatarUrl();
     messageHandler.handleMessage(socket, users);
   })
   socket.on('disconnect', () => {
     delete users[socket.id];
-    io.emit('action', {type: 'users_online', data: createUsersOnline() })
+    io.emit('action', {type: 'users_online', data: createUsersOnline()})
   })
   socket.on('action', action => {
     switch(action.type) {
@@ -45,6 +46,10 @@ io.on('connection', socket => {
         users[socket.id].drink = action.inputDrink;
         users[socket.id].avatar = createUserAvatarUrl();
         io.emit('action', { type: 'users_online', data: createUsersOnline() }) //io emit includes sender, socket emit only sends to others
+        break;
+      case 'server/finished':
+        console.log('Drink Finished', action.data);
+        io.emit('action', {type: 'finished', data: 'Finished ✔️' });
         break;
     }
   })

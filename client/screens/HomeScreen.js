@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef} from 'react';
-import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import io from 'socket.io-client';
 import FriendListScreen from './FriendListScreen';
 
-const beerImage = require('../assets/beer.svg');
+const beerImage = require('../assets/beer.png');
 
 export default function HomeScreen() {
   const [recMessages, setRecMessages] = useState([]);
@@ -12,11 +12,13 @@ export default function HomeScreen() {
 
   useEffect(() => {
     socket.current = io('http://localhost:3001'); // ip may need to be updated 10.10.22.159
-    socket.current.on('message', message => {
-      setRecMessages(prevState => [message, ...prevState]);
+    socket.current.on('finished', drinkState => {
+      setRecMessages(drinkState);
     });
   },[])
 
+
+  // OBSOLETE //
   const onSend = (messages) => {
     console.log('messages in onSend: ', messages);
     socket.current.emit('message', messages[0].text);
@@ -27,26 +29,29 @@ export default function HomeScreen() {
     socket.current.emit('join', userName, userDrink);
     setHasJoined(true);
   }
+  /////////////////
 
   return (
-    <View style={styles.container} >
-      <View style={{alignItems: 'center', margin: 20}}>
-        <View style={styles.headerTextContainer}>
-          <Text style={styles.headerText}>Who's Round</Text>
+    <ScrollView>
+      <View style={styles.container} >
+        <View style={{alignItems: 'center', margin: 20}}>
+          <View style={styles.headerTextContainer}>
+            <Text style={styles.headerText}>Who's Round</Text>
+          </View>
+          <TouchableOpacity onPress={() => dispatch({type: 'server/finished', inputName: userName, inputDrink: userDrink})}>
+            <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
+            <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
+          </TouchableOpacity>
+          <View style={styles.participantsContainer}>
+            <Text style={styles.participantsHeader}>Participants</Text>
+            <FriendListScreen />
+          </View>
         </View>
-        <TouchableOpacity onPress={() => alert("Finished Drink!!")}>
-          <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
-          <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
-        </TouchableOpacity>
-        <View style={styles.participantsContainer}>
-          <Text style={styles.participantsHeader}>Participants</Text>
-          <FriendListScreen />
-        </View>
+        {
+          Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
+        }
       </View>
-      {
-        Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
-      }
-    </View>
+    </ScrollView>
   );
 }
 
