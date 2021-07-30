@@ -7,9 +7,8 @@ console.log('Server Started! 🚀')
 const users = {};
 
 function createUserAvatarUrl() {
-  const rand1 = Math.round(Math.random() * 200 + 100);
-  const rand2 = Math.round(Math.random() * 200 + 100);
-  return `https://placeimg.com/${rand1}/${rand2}/any`;
+  const rand1 = Math.round(Math.random() * 151);
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${rand1}.png`;
 }
 
 function createUsersOnline() {

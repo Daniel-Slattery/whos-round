@@ -12,6 +12,6 @@ export default createAppContainer(
     Join: JoinScreen
   },
   {
-    initialRouteName: "Join"
+    initialRouteName: "App"
   })
 )

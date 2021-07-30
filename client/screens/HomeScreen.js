@@ -1,8 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import io from 'socket.io-client';
-import { GiftedChat } from "react-native-gifted-chat";
-import JoinScreen from './JoinScreen';
 import FriendListScreen from './FriendListScreen';
 
 const beerImage = require('../assets/beer.svg');
@@ -30,51 +28,67 @@ export default function HomeScreen() {
     setHasJoined(true);
   }
 
-
   return (
     <View style={styles.container} >
       <View style={{alignItems: 'center', margin: 20}}>
-        <Text style={styles.headerText}>🍻 Welcome to the pub 🍺 </Text>
+        <View style={styles.headerTextContainer}>
+          <Text style={styles.headerText}>Who's Round</Text>
+        </View>
         <TouchableOpacity onPress={() => alert("Finished Drink!!")}>
-          <Image style={{flex: 1, width: 300, height: 300}} source={beerImage} resizeMode='contain' />
+          <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
           <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
         </TouchableOpacity>
-        <View>
-          <Text style={{marginTop: 50, fontWeight: 'bold', fontSize: 30, color: 'green'}}>List of Users goes here</Text>
+        <View style={styles.participantsContainer}>
+          <Text style={styles.participantsHeader}>Participants</Text>
+          <FriendListScreen />
         </View>
-        <FriendListScreen />
-
-        <GiftedChat
-          renderUsernameOnMessage
-          messages={recMessages}
-          onSend={messages => onSend(messages)}
-          user={{
-            _id: 1
-          }}
-        />
       </View>
-    {
-      Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
-    }
-  </View>
+      {
+        Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
+      }
+    </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
      backgroundColor: 'beige',
      flex: 1
   },
+  headerTextContainer: {
+    backgroundColor: 'black',
+    marginVertical: 20
+  },
   headerText: {
     fontSize: 30,
     textAlign: 'center',
-    marginTop: 20,
-    marginBottom: 20,
-    color: 'blue',
+    marginVertical: 20,
+    marginHorizontal: 20,
+    color: 'white',
     fontWeight: 'bold',
   },
+  beerImage: {
+    flex: 1,
+    width: 300,
+    height: 300
+  },
   buttonText: {
-
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+    textAlign: 'center'
+  },
+  participantsContainer: {
+    alignSelf: 'stretch',
+    marginTop: 40,
+    backgroundColor: '#fad369',
+    borderRadius: 20,
+  },
+  participantsHeader: {
+    textAlign: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+    fontWeight: 'bold',
+    fontSize: 30,
   }
 })
