@@ -5,8 +5,8 @@ import dummyData from '../userData.json';
 
 
 const FriendListScreen = () => {
-  const usersOnline = useSelector(state => state.usersOnline);
-  // const usersOnline = dummyData; // dummy data for testing
+  // const usersOnline = useSelector(state => state.usersOnline);
+  const usersOnline = dummyData; // dummy data for testing
 
   useSelector(state => state.usersOnline);
 
