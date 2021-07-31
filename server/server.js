@@ -1,6 +1,5 @@
 const io = require('socket.io')();
 const uuidv1 = require('uuid/v1');
-const messageHandler = require('./handlers/message.handler');
 
 console.log('Server Started! 🚀')
 
@@ -19,16 +18,13 @@ function createUsersOnline() {
 
 io.on('connection', socket => {
   console.log('a user connected!');
-  //console.log('users: ', users)
-  //console.log(socket.id);
   users[socket.id] = { userId: uuidv1() };
   socket.on('join', (username, drink) => {
     users[socket.id].username = username;
     users[socket.id].drink = drink;
     users[socket.id].isFinished = "Drinking  🍺";
-    console.log(`username: ${username}, Drink: ${drink}`);
+    console.log(`username: ${username}, Drink: ${drink}, isFinished?: ${users[socket.id].isFinished}`);
     users[socket.id].avatar = createUserAvatarUrl();
-    messageHandler.handleMessage(socket, users);
   })
   socket.on('disconnect', () => {
     delete users[socket.id];
@@ -41,10 +37,11 @@ io.on('connection', socket => {
         socket.emit('action', {type: 'message', data: 'Good day from the server!' });
         break;
       case 'server/join':
-        console.log(`Got Join Event, name: ${action.inputName}, drink: ${action.inputDrink}` );
         users[socket.id].username = action.inputName;
         users[socket.id].drink = action.inputDrink;
         users[socket.id].avatar = createUserAvatarUrl();
+        users[socket.id].isFinished = "Drinking  🍺";
+        console.log(`Got Join Event, name: ${action.inputName}, drink: ${action.inputDrink}, isFinished?: ${users[socket.id].isFinished}` );
         io.emit('action', { type: 'users_online', data: createUsersOnline() }) //io emit includes sender, socket emit only sends to others
         break;
       case 'server/finished':

@@ -6,7 +6,8 @@ import dummyData from '../userData.json';
 
 const FriendListScreen = () => {
   const usersOnline = useSelector(state => state.usersOnline);
-  //dummyData;
+  // const usersOnline = dummyData; // dummy data for testing
+
   useSelector(state => state.usersOnline);
 
 
@@ -23,7 +24,7 @@ const FriendListScreen = () => {
               <View style={ styles.avatarContainer }>
                 <Text style={ styles.text }>{item.username}</Text>
                 <Text style={ styles.text }>{item.drink}</Text>
-                <Text style={ styles.text }>{item.hasFinished}</Text>
+                <Text style={ styles.text }>{item.isFinished}</Text>
               </View>
             </View>
           );
@@ -42,9 +43,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   avatarImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 75,
+    height: 75,
   },
   avatarContainer: {
     flex: 1,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 20,
-    paddingHorizontal: 20
+    fontSize: 12,
+    paddingHorizontal: 10
   }
 })

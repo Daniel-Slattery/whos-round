@@ -14,6 +14,8 @@ function reducer(state = {}, action) {
       return { ...state, message: action.data };
     case 'users_online':
       return { ...state, usersOnline: action.data }
+    case 'finished':
+      return { ...state, finished: action.data }
     default:
       return state;
   }

@@ -13,5 +13,6 @@ export default createAppContainer(
   },
   {
     initialRouteName: "Join"
+    // initialRouteName: "App" //skip sign in page for testing
   })
 )

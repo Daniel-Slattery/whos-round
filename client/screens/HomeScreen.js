@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
+import { useDispatch } from 'react-redux';
 import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import io from 'socket.io-client';
 import FriendListScreen from './FriendListScreen';
@@ -6,8 +7,7 @@ import FriendListScreen from './FriendListScreen';
 const beerImage = require('../assets/beer.png');
 
 export default function HomeScreen() {
-  const [recMessages, setRecMessages] = useState([]);
-  const [hasJoined, setHasJoined] = useState(false);
+
   const socket = useRef(null);
 
   useEffect(() => {
@@ -17,28 +17,17 @@ export default function HomeScreen() {
     });
   },[])
 
+  const dispatch = useDispatch();
 
-  // OBSOLETE //
-  const onSend = (messages) => {
-    console.log('messages in onSend: ', messages);
-    socket.current.emit('message', messages[0].text);
-    setRecMessages(prevState => [messages[0], ...prevState]);
-  };
-
-  const enterPub = (userName, userDrink) => {
-    socket.current.emit('join', userName, userDrink);
-    setHasJoined(true);
-  }
-  /////////////////
 
   return (
     <ScrollView>
       <View style={styles.container} >
-        <View style={{alignItems: 'center', margin: 20}}>
+        <View style={{alignItems: 'center', margin: 10}}>
           <View style={styles.headerTextContainer}>
             <Text style={styles.headerText}>Who's Round</Text>
           </View>
-          <TouchableOpacity onPress={() => dispatch({type: 'server/finished', inputName: userName, inputDrink: userDrink})}>
+          <TouchableOpacity style={styles.beerImageContainer} onPress={() => dispatch({type: 'server/finished', inputName: userName, inputDrink: userDrink})}>
             <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
             <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
           </TouchableOpacity>
@@ -62,20 +51,25 @@ const styles = StyleSheet.create({
   },
   headerTextContainer: {
     backgroundColor: 'black',
-    marginVertical: 20
+    marginVertical: 10
   },
   headerText: {
-    fontSize: 30,
+    fontSize: 20,
     textAlign: 'center',
-    marginVertical: 20,
-    marginHorizontal: 20,
+    marginVertical: 10,
+    marginHorizontal: 10,
     color: 'white',
     fontWeight: 'bold',
   },
+  beerImageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   beerImage: {
     flex: 1,
-    width: 300,
-    height: 300
+    width: 150,
+    height: 150
   },
   buttonText: {
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
@@ -85,15 +79,15 @@ const styles = StyleSheet.create({
   },
   participantsContainer: {
     alignSelf: 'stretch',
-    marginTop: 40,
+    marginTop: 20,
     backgroundColor: '#fad369',
     borderRadius: 20,
   },
   participantsHeader: {
     textAlign: 'center',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 15,
   }
 })
