@@ -19,13 +19,6 @@ function createUsersOnline() {
 io.on('connection', socket => {
   console.log('a user connected!');
   users[socket.id] = { userId: uuidv1() };
-  socket.on('join', (username, drink) => {
-    users[socket.id].username = username;
-    users[socket.id].drink = drink;
-    users[socket.id].isFinished = "Drinking  🍺";
-    console.log(`username: ${username}, Drink: ${drink}, isFinished?: ${users[socket.id].isFinished}`);
-    users[socket.id].avatar = createUserAvatarUrl();
-  })
   socket.on('disconnect', () => {
     delete users[socket.id];
     io.emit('action', {type: 'users_online', data: createUsersOnline()})

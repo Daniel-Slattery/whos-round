@@ -27,7 +27,7 @@ export default function HomeScreen() {
           <View style={styles.headerTextContainer}>
             <Text style={styles.headerText}>Who's Round</Text>
           </View>
-          <TouchableOpacity style={styles.beerImageContainer} onPress={() => dispatch({type: 'server/finished', inputName: userName, inputDrink: userDrink})}>
+          <TouchableOpacity style={styles.beerImageContainer} onPress={() => dispatch({type: 'server/finished', isFinished: "Finished ✔️"})}>
             <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
             <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
           </TouchableOpacity>
