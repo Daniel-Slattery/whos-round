@@ -19,13 +19,26 @@ const FriendListScreen = () => {
         renderItem={({item}) => {
           console.log('item', item);
           return (
-            <View style={styles.itemsContainer}>
-              <Image style={styles.avatarImage} source= {{ uri: item.avatar }}/>
+            <View>
+              {item.nextRound ? (
+                <View style={styles.itemsContainerNextRound}>
+                <Image style={styles.avatarImage} source= {{ uri: item.avatar }}/>
+                <View style={ styles.avatarContainer }>
+                  <Text style={ styles.text }>{item.username}</Text>
+                  <Text style={ styles.text }>{item.drink}</Text>
+                  <Text style={ styles.text }>{item.isFinished}</Text>
+                </View>
+                </View>
+              ) : (
+                <View style={styles.itemsContainer}>
+                <Image style={styles.avatarImage} source= {{ uri: item.avatar }}/>
               <View style={ styles.avatarContainer }>
                 <Text style={ styles.text }>{item.username}</Text>
                 <Text style={ styles.text }>{item.drink}</Text>
                 <Text style={ styles.text }>{item.isFinished}</Text>
               </View>
+              </View>
+              )}
             </View>
           );
         }}
@@ -41,6 +54,12 @@ const styles = StyleSheet.create({
   itemsContainer: {
     flex: 1,
     flexDirection: 'row'
+  },
+  itemsContainerNextRound: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 10
   },
   avatarImage: {
     width: 75,

@@ -3,40 +3,40 @@
       "userId": "988758e0-f140-11eb-8f5d-45002e47fa56",
       "username": "Daniel",
       "drink": "Gin",
-      "hasFinished": "Finished ✔️",
-      "nextRound": "false",
+      "isFinished": "Finished ✔️",
+      "nextRound": false,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/51.png"
   },
   {
       "userId": "9895fee0-f140-11eb-8f5d-45002e47fa56",
       "username": "Marius",
       "drink": "Beer",
-      "hasFinished": "Finished ✔️",
-      "nextRound": "false",
+      "isFinished": "Finished ✔️",
+      "nextRound": false,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/32.png"
   },
   {
       "userId": "989cdcb0-f140-11eb-8f5d-45002e47fa56",
       "username": "Checo",
       "drink": "Mojito",
-      "hasFinished": "Drinking 🍺",
-      "nextRound": "false",
+      "isFinished": "Drinking 🍺",
+      "nextRound": false,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png"
   },
   {
       "userId": "af67d2b0-f140-11eb-8f5d-45002e47fa56",
       "username": "Andre",
       "drink": "Guinness",
-      "hasFinished": "Drinking  🍺",
-      "nextRound": "true",
+      "isFinished": "Drinking  🍺",
+      "nextRound": true,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png"
   },
   {
       "userId": "bebab480-f140-11eb-8f5d-45002e47fa56",
       "username": "Jess",
       "drink": "Corona",
-      "hasFinished": "Drinking  🍺",
-      "nextRound": "false",
+      "isFinished": "Drinking  🍺",
+      "nextRound": false,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png"
   }
 ]

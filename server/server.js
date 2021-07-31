@@ -34,6 +34,7 @@ io.on('connection', socket => {
         users[socket.id].drink = action.inputDrink;
         users[socket.id].avatar = createUserAvatarUrl();
         users[socket.id].isFinished = 'Drinking  🍺';
+        users[socket.id].nextRound = false;
         console.log(`Got Join Event, name: ${action.inputName}, drink: ${action.inputDrink}, isFinished?: ${users[socket.id].isFinished}` );
         io.emit('action', { type: 'users_online', data: createUsersOnline() }) //io emit includes sender, socket emit only sends to others
         break;
