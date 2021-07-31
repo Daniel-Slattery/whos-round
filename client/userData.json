@@ -5,6 +5,7 @@
       "drink": "Gin",
       "isFinished": "Finished ✔️",
       "nextRound": false,
+      "admin": true,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/51.png"
   },
   {
@@ -13,6 +14,7 @@
       "drink": "Beer",
       "isFinished": "Finished ✔️",
       "nextRound": false,
+      "admin": false,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/32.png"
   },
   {
@@ -21,6 +23,7 @@
       "drink": "Mojito",
       "isFinished": "Drinking 🍺",
       "nextRound": false,
+      "admin": false,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png"
   },
   {
@@ -29,6 +32,7 @@
       "drink": "Guinness",
       "isFinished": "Drinking  🍺",
       "nextRound": true,
+      "admin": false,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png"
   },
   {
@@ -37,6 +41,7 @@
       "drink": "Corona",
       "isFinished": "Drinking  🍺",
       "nextRound": false,
+      "admin": false,
       "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png"
   }
 ]

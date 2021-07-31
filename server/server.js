@@ -16,10 +16,27 @@ function createUsersOnline() {
   return onlyWithUserNames;
 }
 
+function shuffleAssignNextRound() {
+  const values = Object.values(users);
+  const onlyWithUserNames = values.filter(u => u.username !== undefined);
+  let indexOfNextRound = Math.floor(Math.random() * onlyWithUserNames.length);
+  onlyWithUserNames.map((u, index) => {
+    index === indexOfNextRound ? u.nextRound = true : u.nextRound = false;
+  })
+}
+
+function allFinished() {
+  const values = Object.values(users);
+  const onlyWithUserNames = values.filter(u => u.username !== undefined);
+  return onlyWithUserNames.every(el => el.isFinished === 'Finished ✔️')
+}
+
 io.on('connection', socket => {
   console.log('a user connected!');
   users[socket.id] = { userId: uuidv1() };
   socket.on('disconnect', () => {
+    console.log('a user disconnected!');
+    users[socket.id].nextRound && shuffleAssignNextRound();
     delete users[socket.id];
     io.emit('action', {type: 'users_online', data: createUsersOnline()})
   })
@@ -35,14 +52,16 @@ io.on('connection', socket => {
         users[socket.id].avatar = createUserAvatarUrl();
         users[socket.id].isFinished = 'Drinking  🍺';
         users[socket.id].nextRound = false;
-        console.log(`Got Join Event, name: ${action.inputName}, drink: ${action.inputDrink}, isFinished?: ${users[socket.id].isFinished}` );
+        shuffleAssignNextRound();
+        createUsersOnline().length === 1 ? users[socket.id].admin = true : users[socket.id].admin = false;
         io.emit('action', { type: 'users_online', data: createUsersOnline() }) //io emit includes sender, socket emit only sends to others
         break;
-      case 'server/finished':
-        console.log('Drink Finished');
-        users[socket.id].isFinished === 'Drinking  🍺' ?
-          users[socket.id].isFinished = 'Finished ✔️':
+      case 'server/finished': //handling when beer icon is pressed
+        users[socket.id].isFinished === 'Drinking  🍺' ? users[socket.id].isFinished = 'Finished ✔️':
           users[socket.id].isFinished = 'Drinking  🍺';
+          //check if all users are finished drinks
+        allFinished() && io.emit('action', { type: 'finished', data: true });
+
         io.emit('action', { type: 'users_online', data: createUsersOnline() });
         break;
     }

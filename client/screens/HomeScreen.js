@@ -1,10 +1,11 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { useDispatch } from 'react-redux';
-import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import io from 'socket.io-client';
 import FriendListScreen from './FriendListScreen';
 
 const beerImage = require('../assets/beer.png');
+const backgroundImage = require('../assets/background.jpg');
 
 export default function HomeScreen() {
 
@@ -21,7 +22,6 @@ export default function HomeScreen() {
 
 
   return (
-    <ScrollView>
       <View style={styles.container} >
         <View style={{alignItems: 'center', margin: 10}}>
           <View style={styles.headerTextContainer}>
@@ -40,18 +40,22 @@ export default function HomeScreen() {
           Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
         }
       </View>
-    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center'
+  },
   container: {
      backgroundColor: 'beige',
      flex: 1
   },
   headerTextContainer: {
     backgroundColor: 'black',
-    marginVertical: 10
+    marginTop: 10,
+    marginBottom: 25
   },
   headerText: {
     fontSize: 20,
@@ -68,8 +72,8 @@ const styles = StyleSheet.create({
   },
   beerImage: {
     flex: 1,
-    width: 150,
-    height: 150
+    width: 200,
+    height: 200
   },
   buttonText: {
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
