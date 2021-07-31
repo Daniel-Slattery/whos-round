@@ -33,13 +33,16 @@ io.on('connection', socket => {
         users[socket.id].username = action.inputName;
         users[socket.id].drink = action.inputDrink;
         users[socket.id].avatar = createUserAvatarUrl();
-        users[socket.id].isFinished = "Drinking  🍺";
+        users[socket.id].isFinished = 'Drinking  🍺';
         console.log(`Got Join Event, name: ${action.inputName}, drink: ${action.inputDrink}, isFinished?: ${users[socket.id].isFinished}` );
         io.emit('action', { type: 'users_online', data: createUsersOnline() }) //io emit includes sender, socket emit only sends to others
         break;
       case 'server/finished':
-        console.log('Drink Finished', action.data);
-        io.emit('action', {type: 'finished', data: 'Finished ✔️' });
+        console.log('Drink Finished');
+        users[socket.id].isFinished === 'Drinking  🍺' ?
+          users[socket.id].isFinished = 'Finished ✔️':
+          users[socket.id].isFinished = 'Drinking  🍺';
+        io.emit('action', { type: 'users_online', data: createUsersOnline() });
         break;
     }
   })

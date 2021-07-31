@@ -10,12 +10,10 @@ const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
 function reducer(state = {}, action) {
   switch(action.type) {
-    case 'message':
-      return { ...state, message: action.data };
     case 'users_online':
       return { ...state, usersOnline: action.data }
     case 'finished':
-      return { ...state, finished: action.data }
+      return { ...state, isFinished: action.data }
     default:
       return state;
   }
