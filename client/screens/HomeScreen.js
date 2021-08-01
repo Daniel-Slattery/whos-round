@@ -3,31 +3,36 @@ import { useDispatch } from 'react-redux';
 import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import io from 'socket.io-client';
 import FriendListScreen from './FriendListScreen';
+import { useSelector } from 'react-redux';
 
 const beerImage = require('../assets/beer.png');
 const backgroundImage = require('../assets/background.jpg');
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
 
   const socket = useRef(null);
 
   useEffect(() => {
     socket.current = io('http://localhost:3001'); // ip may need to be updated 10.10.22.159
-    socket.current.on('finished', drinkState => {
-      setRecMessages(drinkState);
-    });
   },[])
 
   const dispatch = useDispatch();
 
+  const usersOnline = useSelector(state => state.usersOnline);
+  useSelector(state => state.usersOnline);
+
 
   return (
-      <View style={styles.container} >
+      <View style={styles.container} data={usersOnline}>
         <View style={{alignItems: 'center', margin: 10}}>
           <View style={styles.headerTextContainer}>
             <Text style={styles.headerText}>Who's Round</Text>
           </View>
-          <TouchableOpacity style={styles.beerImageContainer} onPress={() => dispatch({type: 'server/finished', isFinished: "Finished ✔️"})}>
+          <TouchableOpacity style={styles.beerImageContainer} onPress={() => {
+            dispatch({type: 'server/finished', isFinished: "Finished ✔️"});
+            // usersOnline.every(el => el.isFinished === 'Finished ✔️') && navigation.navigate('Finished');
+          }}
+          >
             <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
             <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
           </TouchableOpacity>

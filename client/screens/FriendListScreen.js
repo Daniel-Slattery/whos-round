@@ -10,14 +10,11 @@ const FriendListScreen = () => {
 
   useSelector(state => state.usersOnline);
 
-
-  console.log('usersOnline', usersOnline);
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <FlatList
         data={usersOnline}
         renderItem={({item}) => {
-          console.log('item', item);
           return (
             <View>
               {item.nextRound ? (
