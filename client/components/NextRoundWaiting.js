@@ -1,13 +1,10 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 
-const drinksImage = require('../assets/drinks.png');
 const waiterImage = require('../assets/waiter2.png');
 
-
-
-const NextRound = () => {
+const NextRoundWaiting = () => {
 
   const whoBuying = useSelector(state => state.whoBuying);
 
@@ -25,7 +22,7 @@ const NextRound = () => {
   )
 }
 
-export default NextRound
+export default NextRoundWaiting
 
 const styles = StyleSheet.create({
   headerTextContainer: {

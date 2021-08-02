@@ -1,16 +1,15 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {
   View,
-  Text,
   TextInput,
   Image,
   Button,
   KeyboardAvoidingView,
-  Platform
+  ImageBackground
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-
+const backgroundImage = require('../assets/background.jpg');
 const pubImage = require('../assets/pub.png');
 
 const JoinScreen = ({ navigation }) => {
@@ -22,6 +21,7 @@ const JoinScreen = ({ navigation }) => {
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'beige'}}>
+      {/* <ImageBackground source={backgroundImage}> */}
       <Image style={{flex: 1}} source={pubImage} resizeMode='contain' style={{width: 300, height: 300, marginTop: 30}}/>
       <View style={{ flex: 1, justifyContent: 'space-around'}}>
         <TextInput
@@ -44,6 +44,7 @@ const JoinScreen = ({ navigation }) => {
         />
       </View>
       <KeyboardAvoidingView behavior="padding" />
+      {/* </ImageBackground> */}
     </View>
   )
 }

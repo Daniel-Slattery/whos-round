@@ -1,11 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
-import io from 'socket.io-client';
-import FriendListScreen from './FriendListScreen';
+import { View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import YourRound from '../components/YourRound';
-import NextRound from '../components/NextRound';
+import NextRoundWaiting from '../components/NextRoundWaiting';
 
 const NextRoundScreen = ({navigation}) => {
 
@@ -17,7 +14,7 @@ const NextRoundScreen = ({navigation}) => {
       { privateMessage ? (
       <YourRound navigation={navigation}/>
       ) : (
-        <NextRound />
+        <NextRoundWaiting />
       )}
       { nextRound || navigation.navigate('App')}
     </View>

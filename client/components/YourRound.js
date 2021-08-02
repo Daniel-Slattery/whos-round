@@ -33,7 +33,7 @@ const YourRound = () => {
       <View style={styles.container}>
         <Text style={styles.h2Text}>Hi {whoBuying}</Text>
         <View>
-          <Text style={styles.whoBuyingText}>It's time to get the round!</Text>
+          <Text style={styles.whoBuyingText}>Go Buy the Round!</Text>
           <FlatList data={drinksList()}
           style={styles.drinkList}
           renderItem={({item}) => {

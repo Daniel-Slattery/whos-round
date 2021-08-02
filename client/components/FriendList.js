@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import dummyData from '../userData.json';
 
 
-const FriendListScreen = () => {
+const FriendList = () => {
   const usersOnline = useSelector(state => state.usersOnline);
   // const usersOnline = dummyData; // dummy data for testing
 
@@ -48,7 +48,7 @@ const FriendListScreen = () => {
   )
 }
 
-export default FriendListScreen
+export default FriendList
 
 const styles = StyleSheet.create({
   itemsContainer: {

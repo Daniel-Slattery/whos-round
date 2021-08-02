@@ -1,9 +1,8 @@
-import React, {useEffect, useState, useRef} from 'react';
-import { useDispatch } from 'react-redux';
+import React, {useEffect, useRef} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import io from 'socket.io-client';
-import FriendListScreen from './FriendListScreen';
-import { useSelector } from 'react-redux';
+import FriendList from '../components/FriendList';
 
 const beerImage = require('../assets/beer.png');
 const beerEmptyImage = require('../assets/beer-empty.png');
@@ -24,7 +23,9 @@ export default function HomeScreen({ navigation }) {
   const userFinished = useSelector(state => state.userFinished);
 
   return (
+    <View>
       <View style={styles.container} data={usersOnline}>
+      <ImageBackground source={backgroundImage} resizeMode="cover">
         <View style={{alignItems: 'center', margin: 10}}>
           <View style={styles.headerTextContainer}>
             <Text style={styles.headerText}>Who's Round</Text>
@@ -48,22 +49,20 @@ export default function HomeScreen({ navigation }) {
           )}
           <View style={styles.participantsContainer}>
             <Text style={styles.participantsHeader}>Participants</Text>
-            <FriendListScreen />
+            <FriendList />
           </View>
         </View>
         {
           Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
         }
         { nextRound && navigation.navigate('Finished') }
+      </ImageBackground>
       </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    justifyContent: 'center'
-  },
   container: {
      backgroundColor: 'beige',
      flex: 1
@@ -102,6 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: '#fad369',
     borderRadius: 20,
+    opacity: 0.8
   },
   participantsHeader: {
     textAlign: 'center',
