@@ -27,9 +27,6 @@ const YourRound = () => {
 
   return (
     <View>
-      <View style={styles.headerTextContainer} data={whoBuying}>
-            <Text style={styles.headerText}>Who's Round</Text>
-          </View>
       <View style={styles.container}>
         <Text style={styles.h2Text}>Hi {whoBuying}</Text>
         <View>

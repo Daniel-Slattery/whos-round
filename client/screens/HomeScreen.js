@@ -23,9 +23,8 @@ export default function HomeScreen({ navigation }) {
   const userFinished = useSelector(state => state.userFinished);
 
   return (
-    <View>
       <View style={styles.container} data={usersOnline}>
-      <ImageBackground source={backgroundImage} resizeMode="cover">
+      <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundImage}>
         <View style={{alignItems: 'center', margin: 10}}>
           <View style={styles.headerTextContainer}>
             <Text style={styles.headerText}>Who's Round</Text>
@@ -58,7 +57,6 @@ export default function HomeScreen({ navigation }) {
         { nextRound && navigation.navigate('Finished') }
       </ImageBackground>
       </View>
-    </View>
   );
 }
 
@@ -66,6 +64,9 @@ const styles = StyleSheet.create({
   container: {
      backgroundColor: 'beige',
      flex: 1
+  },
+  backgroundImage: {
+    flex: 1,
   },
   headerTextContainer: {
     backgroundColor: 'black',

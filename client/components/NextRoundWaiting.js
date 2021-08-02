@@ -9,10 +9,7 @@ const NextRoundWaiting = () => {
   const whoBuying = useSelector(state => state.whoBuying);
 
   return (
-    <View>
-      <View style={styles.headerTextContainer} data={whoBuying}>
-            <Text style={styles.headerText}>Who's Round</Text>
-          </View>
+    <View data={whoBuying} style={styles.container}>
       <Text style={styles.h2Text}>Next Round Coming</Text>
       <View>
         <Text style={styles.whoBuyingText}>{whoBuying} is getting the drinks!</Text>
@@ -25,6 +22,12 @@ const NextRoundWaiting = () => {
 export default NextRoundWaiting
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fad369',
+    opacity: 0.9,
+    padding: 30,
+    borderRadius: 20
+  },
   headerTextContainer: {
     backgroundColor: 'black',
     marginTop: 10,
@@ -54,6 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     width: 300,
     height: 300,
-    marginTop: 20
+    marginTop: 20,
   },
 })

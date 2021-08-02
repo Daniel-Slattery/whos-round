@@ -8,7 +8,7 @@ import AppContainer from './AppContainer';
 const socket = io('http://localhost:3001')//may need to change
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
-function reducer(state = {}, action) {
+function reducer(state = {nextRound: false, privateMessage: false}, action) {
   switch(action.type) {
     case 'next_round':
       return { ...state, nextRound: action.data };
