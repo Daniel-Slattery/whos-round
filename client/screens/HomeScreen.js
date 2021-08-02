@@ -6,6 +6,7 @@ import FriendListScreen from './FriendListScreen';
 import { useSelector } from 'react-redux';
 
 const beerImage = require('../assets/beer.png');
+const beerEmptyImage = require('../assets/beer-empty.png');
 const backgroundImage = require('../assets/background.jpg');
 
 export default function HomeScreen({ navigation }) {
@@ -20,8 +21,7 @@ export default function HomeScreen({ navigation }) {
 
   const usersOnline = useSelector(state => state.usersOnline);
   const nextRound = useSelector(state => state.nextRound);
-
-  console.log('nextRound!!: ', nextRound)
+  const userFinished = useSelector(state => state.userFinished);
 
   return (
       <View style={styles.container} data={usersOnline}>
@@ -29,13 +29,23 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.headerTextContainer}>
             <Text style={styles.headerText}>Who's Round</Text>
           </View>
+          {userFinished ? (
           <TouchableOpacity style={styles.beerImageContainer} onPress={() => {
             dispatch({type: 'server/finished', isFinished: "Finished ✔️"});
           }}
           >
-            <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
-            <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
+            <Image style={styles.beerImage} source={beerEmptyImage} resizeMode='contain' />
+            <Text style={styles.buttonText}>Waiting on Your Friends to Finish</Text>
           </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.beerImageContainer} onPress={() => {
+              dispatch({type: 'server/finished', isFinished: "Finished ✔️"});
+            }}
+            >
+              <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
+              <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
+            </TouchableOpacity>
+          )}
           <View style={styles.participantsContainer}>
             <Text style={styles.participantsHeader}>Participants</Text>
             <FriendListScreen />

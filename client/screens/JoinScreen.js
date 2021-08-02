@@ -11,7 +11,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 
-const pubImage = require('../assets/pub.svg');
+const pubImage = require('../assets/pub.png');
 
 const JoinScreen = ({ navigation }) => {
 

@@ -90,6 +90,9 @@ io.on('connection', socket => {
           io.to(nextRoundSocketId()).emit('action', {type: 'private_message', data: false })
           io.emit('action', { type: 'next_round', data: false });
         }
+        users[socket.id].isFinished === 'Finished ✔️' ?
+          io.to(socket.id).emit('action', {type: 'user_finished', data: true }) :
+          io.to(socket.id).emit('action', {type: 'user_finished', data: false });
         io.emit('action', { type: 'who_buying', data: nextRoundName() });
         io.emit('action', { type: 'users_online', data: createUsersOnline() });
         break;
@@ -97,6 +100,7 @@ io.on('connection', socket => {
         nextRoundReset();
         io.emit('action', { type: 'next_round', data: false });
         io.emit('action', { type: 'private_message', data: false });
+        io.emit('action', { type: 'user_finished', data: false });
         io.emit('action', { type: 'users_online', data: createUsersOnline() })
         break;
     }
