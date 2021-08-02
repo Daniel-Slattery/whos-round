@@ -36,9 +36,23 @@ function nextRoundName() {
 }
 
 function allFinished() {
-  const values = Object.values(users);
-  const onlyWithUserNames = values.filter(u => u.username !== undefined);
+  const onlyWithUserNames = createUsersOnline();
   return onlyWithUserNames.every(el => el.isFinished === 'Finished ✔️')
+}
+
+function nextRoundReset() {
+  const onlyWithUserNames = createUsersOnline();
+  onlyWithUserNames.forEach((u) => u.isFinished = 'Drinking  🍺');
+  const nextRoundUser = onlyWithUserNames.find((u) => u.nextRound);
+  currentNextRoundIndex = onlyWithUserNames.indexOf(nextRoundUser);
+  if (onlyWithUserNames[currentNextRoundIndex].nextRound) {
+    onlyWithUserNames[currentNextRoundIndex].nextRound = false;
+    if (currentNextRoundIndex === (onlyWithUserNames.length - 1)) {
+      onlyWithUserNames[0].nextRound = true;
+    } else {
+      onlyWithUserNames[currentNextRoundIndex + 1].nextRound = true;
+    }
+  }
 }
 
 io.on('connection', socket => {
@@ -70,12 +84,20 @@ io.on('connection', socket => {
           users[socket.id].isFinished = 'Drinking  🍺';
         //check if all users are finished drinks
         if (allFinished()) {
-          io.to(nextRoundSocketId()).emit('action', {type: 'private_message', data: 'Go buy a Round!' })
+          io.to(nextRoundSocketId()).emit('action', {type: 'private_message', data: true })
+          io.emit('action', { type: 'next_round', data: true });
         } else {
-          io.to(nextRoundSocketId()).emit('action', {type: 'private_message', data: 'soon time to get round' })
+          io.to(nextRoundSocketId()).emit('action', {type: 'private_message', data: false })
+          io.emit('action', { type: 'next_round', data: false });
         }
         io.emit('action', { type: 'who_buying', data: nextRoundName() });
         io.emit('action', { type: 'users_online', data: createUsersOnline() });
+        break;
+      case 'server/nextRound':
+        nextRoundReset();
+        io.emit('action', { type: 'next_round', data: false });
+        io.emit('action', { type: 'private_message', data: false });
+        io.emit('action', { type: 'users_online', data: createUsersOnline() })
         break;
     }
   })

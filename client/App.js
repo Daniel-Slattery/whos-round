@@ -8,18 +8,20 @@ import AppContainer from './AppContainer';
 const socket = io('http://localhost:3001')//may need to change
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
-function reducer(state = {whoBuying: 'John'}, action) {
+function reducer(state = {privateMessage: false}, action) {
   switch(action.type) {
+    case 'next_round':
+      return { ...state, nextRound: action.data };
     case 'message':
       return { ...state, message: action.data };
     case 'private_message':
-      return { private_message: action.data };
+      return { ...state, privateMessage: action.data };
     case 'users_online':
-      return { ...state, usersOnline: action.data }
+      return { ...state, usersOnline: action.data };
     case 'who_buying':
-      return { ...state, whoBuying: action.data }
+      return { ...state, whoBuying: action.data };
     case 'finished':
-      return { isFinished: action.data }
+      return { ...state, isFinished: action.data };
     default:
       return state;
   }

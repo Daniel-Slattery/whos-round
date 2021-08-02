@@ -14,7 +14,7 @@ export default createAppContainer(
     Finished: NextRoundScreen
   },
   {
-    // initialRouteName: "Join"
-    initialRouteName: "Finished" //skip sign in page for testing
+    initialRouteName: "Join"
+    // initialRouteName: "Finished" //skip sign in page for testing
   })
 )

@@ -38,7 +38,6 @@ const JoinScreen = ({ navigation }) => {
         />
         <Button title='Enter Pub'
           onPress={() => {
-            // enterPub(userName, userDrink)} // replaced with redux dispatch
             dispatch({type: 'server/join', inputName: userName, inputDrink: userDrink});
             navigation.navigate('App');
           }}

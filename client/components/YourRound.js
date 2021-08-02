@@ -1,16 +1,17 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
-import { useSelector } from 'react-redux';
+import { View, Text, StyleSheet, Image, FlatList, Button } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux';
 import dummyData from '../userData.json';
 
-
 const drinksImage = require('../assets/drinks.png');
-const waiterImage = require('../assets/waiter2.png');
 
 const YourRound = () => {
   const whoBuying = useSelector(state => state.whoBuying);
-  // const usersOnline = useSelector(state => state.usersOnline);
-  const usersOnline = dummyData; // dummy data for testing
+  const usersOnline = useSelector(state => state.usersOnline);
+
+  // const usersOnline = dummyData; // dummy data for testing
+
+  const dispatch = useDispatch();
 
   function drinksList() {
     const drinksObject = {};
@@ -29,20 +30,28 @@ const YourRound = () => {
       <View style={styles.headerTextContainer} data={whoBuying}>
             <Text style={styles.headerText}>Who's Round</Text>
           </View>
-      <Text style={styles.h2Text}>Hi {whoBuying}</Text>
-      <View>
-        <Text style={styles.whoBuyingText}>It's time to get the round!</Text>
-        <FlatList data={drinksList()}
-        style={styles.drinkList}
-        renderItem={({item}) => {
-          return (
-            <View>
-              <Text style={ styles.text }>{item}</Text>
-            </View>
-          );
-        }}
-      />
+      <View style={styles.container}>
+        <Text style={styles.h2Text}>Hi {whoBuying}</Text>
+        <View>
+          <Text style={styles.whoBuyingText}>It's time to get the round!</Text>
+          <FlatList data={drinksList()}
+          style={styles.drinkList}
+          renderItem={({item}) => {
+            return (
+              <View>
+                <Text style={ styles.text }>{item}</Text>
+              </View>
+            );
+          }}
+          />
+        </View>
       </View>
+      <View style={styles.button}>
+
+        <Button title='Next Round'
+          onPress={() => {dispatch({type: 'server/nextRound'})}}/>
+        </View>
+      <Image style={styles.drinksImage} source={drinksImage} resizeMode='contain' />
     </View>
   )
 }
@@ -50,6 +59,14 @@ const YourRound = () => {
 export default YourRound
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fad369',
+    borderTopStartRadius: 20,
+    borderTopEndRadius: 20,
+    padding: 20,
+    zIndex: 2,
+    opacity: 0.9
+  },
   headerTextContainer: {
     backgroundColor: 'black',
     marginTop: 10,
@@ -74,18 +91,25 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     textAlign: 'center'
   },
-  waiterImage: {
+  button: {
+    zIndex: 2,
+    opacity: 0.9
+  },
+  drinksImage: {
     flex: 1,
     justifyContent: 'flex-start',
     width: 300,
     height: 300,
-    marginTop: 20
+    marginTop: 20,
+    top: -200,
+    zIndex: 1
   },
   text: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 20,
+    margin: 10
   },
   drinkList: {
     marginVertical: 20,
-    backgroundColor: 'gray'
   }
 })

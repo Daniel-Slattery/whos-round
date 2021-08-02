@@ -7,19 +7,19 @@ import { useSelector } from 'react-redux';
 import YourRound from '../components/YourRound';
 import NextRound from '../components/NextRound';
 
-const NextRoundScreen = () => {
+const NextRoundScreen = ({navigation}) => {
 
-  const usersOnline = useSelector(state => state.usersOnline);
-  useSelector(state => state.usersOnline);
-
+  const privateMessage = useSelector(state => state.privateMessage);
+  const nextRound = useSelector(state => state.nextRound);
 
   return (
-    <View style={styles.container} data={usersOnline}>
-    { false ? (
-      <NextRound />
-    ) : (
-      <YourRound />
-    )}
+    <View style={styles.container} data={privateMessage}>
+      { privateMessage ? (
+      <YourRound navigation={navigation}/>
+      ) : (
+        <NextRound />
+      )}
+      { nextRound || navigation.navigate('App')}
     </View>
   )
 }

@@ -19,8 +19,9 @@ export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const usersOnline = useSelector(state => state.usersOnline);
-  useSelector(state => state.usersOnline);
+  const nextRound = useSelector(state => state.nextRound);
 
+  console.log('nextRound!!: ', nextRound)
 
   return (
       <View style={styles.container} data={usersOnline}>
@@ -30,7 +31,6 @@ export default function HomeScreen({ navigation }) {
           </View>
           <TouchableOpacity style={styles.beerImageContainer} onPress={() => {
             dispatch({type: 'server/finished', isFinished: "Finished ✔️"});
-            // usersOnline.every(el => el.isFinished === 'Finished ✔️') && navigation.navigate('Finished');
           }}
           >
             <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
@@ -44,6 +44,7 @@ export default function HomeScreen({ navigation }) {
         {
           Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
         }
+        { nextRound && navigation.navigate('Finished') }
       </View>
   );
 }
