@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 const AppContainer = () => {
   return (
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName={'Join'} screenOptions={{headerShown: false,}}>
+      <Stack.Navigator initialRouteName={'Home'} screenOptions={{headerShown: false,}}>
         <Stack.Screen name="Home" component={HomeScreen}/>
         <Stack.Screen name="Join" component={JoinScreen}/>
         <Stack.Screen name="Finished" component={NextRoundScreen}/>

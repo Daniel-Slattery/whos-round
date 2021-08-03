@@ -36,8 +36,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   waiterImage: {
-    flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     width: 300,
     height: 300,
     marginTop: 20,

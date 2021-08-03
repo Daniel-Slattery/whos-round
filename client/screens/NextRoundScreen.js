@@ -12,8 +12,8 @@ const NextRoundScreen = ({navigation}) => {
 
   const privateMessage = useSelector(state => state.privateMessage);
   const nextRound = useSelector(state => state.nextRound);
-  const usersOnline = useSelector(state => state.usersOnline);
-  // const usersOnline = dummyData; // dummy data for testing
+  // const usersOnline = useSelector(state => state.usersOnline);
+  const usersOnline = dummyData; // dummy data for testing
   function whoBuying() {
     const nextRoundUser = usersOnline.find((u) => u.nextRound);
     return nextRoundUser.username;
@@ -30,10 +30,10 @@ const NextRoundScreen = ({navigation}) => {
           ) : (
             <NextRoundWaiting usersOnline={usersOnline} whoBuying={whoBuying()}/>
           )}
-          { nextRound || navigation.navigate('Home')}
         </View>
       </View>
       </ImageBackground>
+      { nextRound || navigation.navigate('Home')}
     </View>
   )
 }
@@ -41,21 +41,16 @@ const NextRoundScreen = ({navigation}) => {
 export default NextRoundScreen
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+  },
   mainContainer: {
      backgroundColor: 'beige',
      flex: 1,
-     alignSelf: 'stretch',
-     justifyContent: 'center',
   },
   itemsContainer: {
-    flex: 1,
      flexDirection: 'column',
-     justifyContent: 'space-between',
      alignItems: 'center',
      margin: 10,
-     alignItems: 'center', margin: 10
-  },
-  backgroundImage: {
-    flex: 1,
   }
 })

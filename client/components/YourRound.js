@@ -58,19 +58,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
     opacity: 0.9
   },
-  headerTextContainer: {
-    backgroundColor: 'black',
-    marginTop: 10,
-    marginBottom: 25
-  },
-  headerText: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginVertical: 10,
-    marginHorizontal: 10,
-    color: 'white',
-    fontWeight: 'bold',
-  },
   h2Text: {
     fontSize: 20,
     textAlign: 'center',
@@ -87,8 +74,6 @@ const styles = StyleSheet.create({
     opacity: 0.9
   },
   drinksImage: {
-    flex: 1,
-    justifyContent: 'flex-start',
     width: 300,
     height: 300,
     marginTop: 20,
