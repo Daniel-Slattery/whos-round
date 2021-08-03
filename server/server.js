@@ -27,7 +27,7 @@ function shuffleAssignNextRound(num) {
 
 function nextRoundSocketId() {
   const nextRoundUser = createUsersOnline().find((u) => u.nextRound);
-  return nextRoundUser.socketId;
+  if (nextRoundUser.socketId) return nextRoundUser.socketId;
 }
 
 function nextRoundName() {
@@ -56,6 +56,7 @@ function nextRoundReset() {
 }
 
 io.on('connection', socket => {
+  // console.log('user connected');
   users[socket.id] = { userId: uuidv1() };
   socket.on('disconnect', () => {
     users[socket.id].nextRound && shuffleAssignNextRound(1);
@@ -69,6 +70,7 @@ io.on('connection', socket => {
         socket.emit('action', {type: 'message', data: 'Good day from the server!' });
         break;
       case 'server/join':
+        console.log('a user connected');
         users[socket.id].username = action.inputName;
         users[socket.id].drink = action.inputDrink;
         users[socket.id].avatar = createUserAvatarUrl();

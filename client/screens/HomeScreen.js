@@ -1,8 +1,9 @@
 import React, {useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, Platform, KeyboardAvoidingView, Image, StyleSheet, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import io from 'socket.io-client';
 import FriendList from '../components/FriendList';
+
 
 const beerImage = require('../assets/beer.png');
 const beerEmptyImage = require('../assets/beer-empty.png');
@@ -23,47 +24,51 @@ export default function HomeScreen({ navigation }) {
   const userFinished = useSelector(state => state.userFinished);
 
   return (
-      <View style={styles.container} data={usersOnline}>
-      <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundImage}>
-        <View style={{alignItems: 'center', margin: 10}}>
-          <View style={styles.headerTextContainer}>
-            <Text style={styles.headerText}>Who's Round</Text>
+    <View style={{flex: 1, backgroundColor: 'blue'}} data={usersOnline}>
+        <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundImage}>
+      <ScrollView >
+          <View style={styles.container}>
+          <View style={{alignItems: 'center', margin: 10}}>
+            <View style={styles.headerTextContainer}>
+              <Text style={styles.headerText}>Who's Round</Text>
+            </View>
+            {userFinished ? (
+              <View style={styles.beerImageContainer}>
+                <TouchableOpacity  onPress={() => {
+                dispatch({type: 'server/finished', isFinished: "Finished ✔️"});
+                }}
+                >
+                <Image style={styles.beerImage} source={beerEmptyImage} resizeMode='contain' />
+                <Text style={styles.buttonText}>Waiting on Your Friends to Finish</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <TouchableOpacity style={styles.beerImageContainer} onPress={() => {
+                dispatch({type: 'server/finished', isFinished: "Finished ✔️"});
+              }}
+              >
+                <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
+                <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
+              </TouchableOpacity>
+            )}
+            <View style={styles.participantsContainer}>
+              <Text style={styles.participantsHeader}>Participants</Text>
+              <FriendList usersOnline={usersOnline}/>
+            </View>
           </View>
-          {userFinished ? (
-          <TouchableOpacity style={styles.beerImageContainer} onPress={() => {
-            dispatch({type: 'server/finished', isFinished: "Finished ✔️"});
-          }}
-          >
-            <Image style={styles.beerImage} source={beerEmptyImage} resizeMode='contain' />
-            <Text style={styles.buttonText}>Waiting on Your Friends to Finish</Text>
-          </TouchableOpacity>
-          ) : (
-            <TouchableOpacity style={styles.beerImageContainer} onPress={() => {
-              dispatch({type: 'server/finished', isFinished: "Finished ✔️"});
-            }}
-            >
-              <Image style={styles.beerImage} source={beerImage} resizeMode='contain' />
-              <Text style={styles.buttonText}>Press Beer Icon when finished Drink</Text>
-            </TouchableOpacity>
-          )}
-          <View style={styles.participantsContainer}>
-            <Text style={styles.participantsHeader}>Participants</Text>
-            <FriendList />
+          { nextRound && navigation.navigate('Finished') }
           </View>
-        </View>
-        {
-          Platform.OS === "android" && <KeyboardAvoidingView behavior="padding" />
-        }
-        { nextRound && navigation.navigate('Finished') }
-      </ImageBackground>
-      </View>
+      </ScrollView>
+        </ImageBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-     backgroundColor: 'beige',
-     flex: 1
+     flex: 1,
+     flexDirection: 'column',
+     justifyContent: 'space-between'
   },
   backgroundImage: {
     flex: 1,
@@ -82,16 +87,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   beerImageContainer: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
   beerImage: {
-    flex: 1,
-    width: 200,
-    height: 200
+    width: 300,
+    height: 300
   },
   buttonText: {
+    fontSize: 20,
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10,
@@ -109,6 +113,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 30,
   }
 })

@@ -4,14 +4,10 @@ import { useSelector } from 'react-redux';
 import dummyData from '../userData.json';
 
 
-const FriendList = () => {
-  const usersOnline = useSelector(state => state.usersOnline);
-  // const usersOnline = dummyData; // dummy data for testing
-
-  useSelector(state => state.usersOnline);
+const FriendList = ({ usersOnline }) => {
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{justifyContent: 'center'}}>
       <FlatList
         data={usersOnline}
         renderItem={({item}) => {
@@ -81,7 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 15,
+    fontSize: 20,
     paddingHorizontal: 10
   }
 })

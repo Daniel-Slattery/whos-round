@@ -6,9 +6,11 @@ import {
   Button,
   KeyboardAvoidingView,
   ImageBackground,
-  StyleSheet
+  StyleSheet,
+  Dimensions
 } from 'react-native';
 import { useDispatch } from 'react-redux';
+const { height, width } = Dimensions.get('window');
 
 const backgroundImage = require('../assets/background.jpg');
 const pubImage = require('../assets/pub.png');
@@ -23,17 +25,17 @@ const JoinScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundImage}>
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Image style={{flex: 1}} source={pubImage} resizeMode='contain' style={{width: 300, height: 300, marginTop: 30}}/>
-        <View style={{ flex: 1, justifyContent: 'space-around'}}>
+      <View style={styles.itemsContainer}>
+        <Image source={pubImage} resizeMode='contain' style={styles.pubImage}/>
+        <View style={styles.formInputItems}>
           <TextInput
-            style={{fontSize: 30, textAlign: 'center'}}
+            style={styles.TextBoxInput}
             placeholder='Enter Username'
             onChangeText={text => setUsername(text)}
             value={userName}
           />
           <TextInput
-            style={{fontSize: 30, textAlign: 'center'}}
+            style={styles.TextBoxInput}
             placeholder='Enter Drink'
             onChangeText={text => setUserDrink(text)}
             value={userDrink}
@@ -41,14 +43,14 @@ const JoinScreen = ({ navigation }) => {
           <Button title='Enter Pub'
             onPress={() => {
               dispatch({type: 'server/join', inputName: userName, inputDrink: userDrink});
-              navigation.navigate('App');
+              navigation.navigate('Home');
             }}
           />
         </View>
-        <KeyboardAvoidingView behavior="padding" />
        </View>
       </ImageBackground>
-      </View>
+
+    </View>
   )
 }
 
@@ -56,10 +58,31 @@ export default JoinScreen
 
 const styles = StyleSheet.create({
   container: {
-     backgroundColor: 'beige',
-     flex: 1
+    flex: 1,
+    height: height,
+    backgroundColor: 'blue',
   },
   backgroundImage: {
     flex: 1,
   },
+  itemsContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  pubImage: {
+    flex: 1,
+    width: 300,
+    height: 300,
+    marginTop: 30
+  },
+  formInputItems: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
+  TextBoxInput: {
+    fontSize: 30,
+    textAlign: 'center'
+  }
 })

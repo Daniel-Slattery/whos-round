@@ -23,7 +23,7 @@ const NextRoundScreen = ({navigation}) => {
           ) : (
             <NextRoundWaiting />
           )}
-          { nextRound || navigation.navigate('App')}
+          { nextRound || navigation.navigate('Home')}
         </View>
       </View>
       </ImageBackground>
