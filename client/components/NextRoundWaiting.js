@@ -1,13 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { useSelector } from 'react-redux';
 
 const waiterImage = require('../assets/waiter2.png');
 
-const NextRoundWaiting = () => {
-
-  const whoBuying = useSelector(state => state.whoBuying);
-
+const NextRoundWaiting = ({ whoBuying }) => {
   return (
     <View data={whoBuying} style={styles.container}>
       <Text style={styles.h2Text}>Next Round Coming</Text>
@@ -27,19 +23,6 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     padding: 30,
     borderRadius: 20
-  },
-  headerTextContainer: {
-    backgroundColor: 'black',
-    marginTop: 10,
-    marginBottom: 25
-  },
-  headerText: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginVertical: 10,
-    marginHorizontal: 10,
-    color: 'white',
-    fontWeight: 'bold',
   },
   h2Text: {
     fontSize: 20,

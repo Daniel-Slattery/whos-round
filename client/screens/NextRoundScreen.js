@@ -1,27 +1,34 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, Text } from 'react-native';
+import { View, StyleSheet, ImageBackground } from 'react-native';
 import { useSelector } from 'react-redux';
 import YourRound from '../components/YourRound';
 import NextRoundWaiting from '../components/NextRoundWaiting';
+import HeaderLogo from '../components/HeaderLogo';
+import dummyData from '../userData.json';
 const backgroundImage = require('../assets/background.jpg');
+
 
 const NextRoundScreen = ({navigation}) => {
 
   const privateMessage = useSelector(state => state.privateMessage);
   const nextRound = useSelector(state => state.nextRound);
+  const usersOnline = useSelector(state => state.usersOnline);
+  // const usersOnline = dummyData; // dummy data for testing
+  function whoBuying() {
+    const nextRoundUser = usersOnline.find((u) => u.nextRound);
+    return nextRoundUser.username;
+  }
 
   return (
-    <View style={styles.container} data={privateMessage}>
+    <View style={styles.mainContainer} data={privateMessage}>
       <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundImage}>
-      <View style={{alignItems: 'center', margin: 10}}>
-        <View style={styles.headerTextContainer}>
-              <Text style={styles.headerText}>Who's Round</Text>
-        </View>
+      <View style={styles.itemsContainer}>
+        <HeaderLogo />
         <View>
           { privateMessage ? (
-          <YourRound navigation={navigation}/>
+          <YourRound navigation={navigation} usersOnline={usersOnline} whoBuying={whoBuying()}/>
           ) : (
-            <NextRoundWaiting />
+            <NextRoundWaiting usersOnline={usersOnline} whoBuying={whoBuying()}/>
           )}
           { nextRound || navigation.navigate('Home')}
         </View>
@@ -34,26 +41,21 @@ const NextRoundScreen = ({navigation}) => {
 export default NextRoundScreen
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
      backgroundColor: 'beige',
      flex: 1,
      alignSelf: 'stretch',
      justifyContent: 'center',
   },
+  itemsContainer: {
+    flex: 1,
+     flexDirection: 'column',
+     justifyContent: 'space-between',
+     alignItems: 'center',
+     margin: 10,
+     alignItems: 'center', margin: 10
+  },
   backgroundImage: {
     flex: 1,
-  },
-  headerTextContainer: {
-    backgroundColor: 'black',
-    marginTop: 10,
-    marginBottom: 25
-  },
-  headerText: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginVertical: 10,
-    marginHorizontal: 10,
-    color: 'white',
-    fontWeight: 'bold',
   }
 })

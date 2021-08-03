@@ -1,16 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, FlatList, Button } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
-import dummyData from '../userData.json';
 
 const drinksImage = require('../assets/drinks.png');
 
-const YourRound = () => {
-  const whoBuying = useSelector(state => state.whoBuying);
-  const usersOnline = useSelector(state => state.usersOnline);
-
-  // const usersOnline = dummyData; // dummy data for testing
-
+const YourRound = ({ usersOnline, whoBuying }) => {
+  // const whoBuying = useSelector(state => state.whoBuying);
   const dispatch = useDispatch();
 
   function drinksList() {
