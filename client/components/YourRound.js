@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, FlatList, Button } from 'react-native'
 import { useDispatch } from 'react-redux';
+import PressableButton from './PressableButton';
 
 const drinksImage = require('../assets/drinks.png');
 
@@ -39,7 +40,7 @@ const YourRound = ({ usersOnline, whoBuying }) => {
       </View>
       <View style={styles.button}>
 
-        <Button title='Next Round'
+        <PressableButton title='Next Round'
           onPress={() => {dispatch({type: 'server/nextRound'})}}/>
         </View>
       <Image style={styles.drinksImage} source={drinksImage} resizeMode='contain' />

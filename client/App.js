@@ -5,10 +5,10 @@ import io from 'socket.io-client';
 import React from 'react';
 import AppContainer from './AppContainer';
 
-const socket = io('http://10.10.22.159:3001')//may need to change
+const socket = io('http://172.20.10.2:3001')//may need to change
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
-function reducer(state = {nextRound: true, privateMessage: false}, action) {
+function reducer(state = {nextRound: false, privateMessage: false}, action) {
   switch(action.type) {
     case 'next_round':
       return { ...state, nextRound: action.data };

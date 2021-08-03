@@ -3,14 +3,12 @@ import {
   View,
   TextInput,
   Image,
-  Button,
-  KeyboardAvoidingView,
   ImageBackground,
   StyleSheet,
   Dimensions
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-const { height, width } = Dimensions.get('window');
+import PressableButton from '../components/PressableButton';
 
 const backgroundImage = require('../assets/background.jpg');
 const pubImage = require('../assets/pub.png');
@@ -40,12 +38,11 @@ const JoinScreen = ({ navigation }) => {
             onChangeText={text => setUserDrink(text)}
             value={userDrink}
           />
-          <Button title='Enter Pub'
-            onPress={() => {
-              dispatch({type: 'server/join', inputName: userName, inputDrink: userDrink});
-              navigation.navigate('Home');
-            }}
-          />
+          <PressableButton title='ENTER PUB'
+           onPress={() => {
+            dispatch({type: 'server/join', inputName: userName, inputDrink: userDrink});
+            navigation.navigate('Home');
+          }}/>
         </View>
        </View>
       </ImageBackground>
@@ -59,8 +56,7 @@ export default JoinScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: height,
-    backgroundColor: 'blue',
+    backgroundColor: 'beige',
   },
   backgroundImage: {
     flex: 1,

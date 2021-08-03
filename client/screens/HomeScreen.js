@@ -15,11 +15,11 @@ export default function HomeScreen({ navigation }) {
   const socket = useRef(null);
 
   useEffect(() => {
-    socket.current = io('http://10.10.22.159:3001'); // ip may need to be updated 10.10.22.159
+    socket.current = io('http://172.20.10.2:3001'); // ip may need to be updated 10.10.22.159
   },[])
 
-  // const usersOnline = useSelector(state => state.usersOnline);
-  const usersOnline = dummyData; // dummy data for testing
+  const usersOnline = useSelector(state => state.usersOnline);
+  // const usersOnline = dummyData; // dummy data for testing
 
   const nextRound = useSelector(state => state.nextRound);
 
