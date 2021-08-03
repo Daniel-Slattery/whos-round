@@ -1,12 +1,10 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import { useSelector } from 'react-redux';
 import { View, Text, FlatList, StyleSheet, ImageBackground } from 'react-native';
-import io from 'socket.io-client';
 import FriendList from '../components/FriendList';
 import BeerIcon from '../components/BeerIcon';
 import HeaderLogo from '../components/HeaderLogo';
 import dummyData from '../userData.json';
-
 
 const backgroundImage = require('../assets/background.jpg');
 
@@ -14,14 +12,11 @@ export default function HomeScreen({ navigation }) {
 
   const socket = useRef(null);
 
-  useEffect(() => {
-    socket.current = io('http://172.20.10.2:3001'); // ip may need to be updated 10.10.22.159
-  },[])
-
   const usersOnline = useSelector(state => state.usersOnline);
   // const usersOnline = dummyData; // dummy data for testing
 
   const nextRound = useSelector(state => state.nextRound);
+  nextRound && navigation.navigate('Finished')
 
   return (
     <View style={styles.mainContainer} data={usersOnline}>
@@ -39,7 +34,6 @@ export default function HomeScreen({ navigation }) {
               }/>
           </View>
       </ImageBackground>
-      { nextRound && navigation.navigate('Finished') }
     </View>
   );
 }

@@ -5,7 +5,8 @@ import {
   Image,
   ImageBackground,
   StyleSheet,
-  Dimensions
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import PressableButton from '../components/PressableButton';
@@ -45,8 +46,8 @@ const JoinScreen = ({ navigation }) => {
           }}/>
         </View>
        </View>
+       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} />
       </ImageBackground>
-
     </View>
   )
 }

@@ -19,6 +19,7 @@ const NextRoundScreen = ({navigation}) => {
     return nextRoundUser.username;
   }
 
+  nextRound || navigation.navigate('Home');
   return (
     <View style={styles.mainContainer} data={privateMessage}>
       <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundImage}>
@@ -33,7 +34,6 @@ const NextRoundScreen = ({navigation}) => {
         </View>
       </View>
       </ImageBackground>
-      { nextRound || navigation.navigate('Home')}
     </View>
   )
 }
