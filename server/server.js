@@ -56,34 +56,33 @@ function nextRoundReset() {
 }
 
 io.on('connection', socket => {
-  // console.log('user connected');
   users[socket.id] = { userId: uuidv1() };
+  const userSocket = users[socket.id];
   socket.on('disconnect', () => {
-    users[socket.id].nextRound && shuffleAssignNextRound(1);
+    userSocket.nextRound && shuffleAssignNextRound(1);
     delete users[socket.id];
     io.emit('action', {type: 'users_online', data: createUsersOnline()})
   })
   socket.on('action', action => {
     switch(action.type) {
       case 'server/hello':
-        // console.log('Got hello event', action.data);
         socket.emit('action', {type: 'message', data: 'Good day from the server!' });
         break;
       case 'server/join':
         console.log('a user connected');
-        users[socket.id].username = action.inputName;
-        users[socket.id].drink = action.inputDrink;
-        users[socket.id].avatar = createUserAvatarUrl();
-        users[socket.id].isFinished = 'Drinking  🍺';
-        users[socket.id].nextRound = false;
-        users[socket.id].socketId = socket.id;
+        userSocket.username = action.inputName;
+        userSocket.drink = action.inputDrink;
+        userSocket.avatar = createUserAvatarUrl();
+        userSocket.isFinished = 'Drinking  🍺';
+        userSocket.nextRound = false;
+        userSocket.socketId = socket.id;
         shuffleAssignNextRound(0);
-        createUsersOnline().length === 1 ? users[socket.id].admin = true : users[socket.id].admin = false;
+        createUsersOnline().length === 1 ? userSocket.admin = true : userSocket.admin = false;
         io.emit('action', { type: 'users_online', data: createUsersOnline() }) //io emit includes sender, socket emit only sends to others
         break;
       case 'server/finished': //handling when beer icon is pressed
-        users[socket.id].isFinished === 'Drinking  🍺' ? users[socket.id].isFinished = 'Finished ✔️':
-          users[socket.id].isFinished = 'Drinking  🍺';
+        userSocket.isFinished === 'Drinking  🍺' ? userSocket.isFinished = 'Finished ✔️':
+          userSocket.isFinished = 'Drinking  🍺';
         //check if all users are finished drinks
         if (allFinished()) {
           io.to(nextRoundSocketId()).emit('action', {type: 'private_message', data: true })
@@ -92,7 +91,7 @@ io.on('connection', socket => {
           io.to(nextRoundSocketId()).emit('action', {type: 'private_message', data: false })
           io.emit('action', { type: 'next_round', data: false });
         }
-        users[socket.id].isFinished === 'Finished ✔️' ?
+        userSocket.isFinished === 'Finished ✔️' ?
           io.to(socket.id).emit('action', {type: 'user_finished', data: true }) :
           io.to(socket.id).emit('action', {type: 'user_finished', data: false });
         io.emit('action', { type: 'users_online', data: createUsersOnline() });

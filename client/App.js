@@ -3,8 +3,10 @@ import { Provider } from 'react-redux';
 import createSocketIoMiddleware from 'redux-socket.io';
 import io from 'socket.io-client';
 import React from 'react';
+import { LogBox, Platform } from 'react-native';
 import AppContainer from './AppContainer';
 
+Platform.OS === 'android' && LogBox.ignoreAllLogs();// prevent error warning from showing on android emulator
 const socket = io('http://10.10.22.159:3001')//may need to change
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
