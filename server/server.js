@@ -95,7 +95,7 @@ io.on('connection', socket => {
         users[socket.id].isFinished === 'Finished ✔️' ?
           io.to(socket.id).emit('action', {type: 'user_finished', data: true }) :
           io.to(socket.id).emit('action', {type: 'user_finished', data: false });
-        io.emit('action', { type: 'who_buying', data: nextRoundName() });
+        // io.emit('action', { type: 'who_buying', data: nextRoundName() });
         io.emit('action', { type: 'users_online', data: createUsersOnline() });
         break;
       case 'server/nextRound':

@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import React from 'react';
 import AppContainer from './AppContainer';
 
-const socket = io('http://localhost:3001')//may need to change
+const socket = io('http://10.10.22.159:3001')//may need to change
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
 function reducer(state = {nextRound: false, privateMessage: false}, action) {
@@ -20,8 +20,6 @@ function reducer(state = {nextRound: false, privateMessage: false}, action) {
       return { ...state, userFinished: action.data };
     case 'users_online':
       return { ...state, usersOnline: action.data };
-    case 'who_buying':
-      return { ...state, whoBuying: action.data };
     case 'finished':
       return { ...state, isFinished: action.data };
     default:
