@@ -2,10 +2,11 @@
 
 A drinks round tracker. An app that tracks the drinking consumption of a group. MVP is to track and notify who's turn it is to buy a round
 
+<h2 id='app'>App in Use</h2>
+
+![Alt Text](client/assets/vidgif.gif)
+
 <h2 id='wireframes'>Concept</h2>
 
 ![responsive-page](client/assets/wireframes.PNG)
 
-<h2 id='app'>App in Use</h2>
-
-![Alt Text](client/assets/vidgif.gif)
