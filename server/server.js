@@ -56,6 +56,7 @@ function nextRoundReset() {
 }
 
 io.on('connection', socket => {
+  console.log('connection!!')
   users[socket.id] = { userId: uuidv1() };
   const userSocket = users[socket.id];
   socket.on('disconnect', () => {
@@ -69,7 +70,7 @@ io.on('connection', socket => {
         socket.emit('action', {type: 'message', data: 'Good day from the server!' });
         break;
       case 'server/join':
-        console.log('a user connected');
+        console.log('a user connected', users);
         userSocket.username = action.inputName;
         userSocket.drink = action.inputDrink;
         userSocket.avatar = createUserAvatarUrl();
