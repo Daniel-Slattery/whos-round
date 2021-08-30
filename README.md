@@ -12,7 +12,7 @@ A drinks round tracker. An app that tracks the drinking consumption of a group.
 
 • User is then directed to main page where all other users details are dispplay
 
-• User pushes beer icon when finished their drink to notify participants
+• User presses beer icon when finished their drink to notify participants
 
 • When all users drinking status is finished, the app will notify the buyer of the next rond with a list of drinks to buy
 
