@@ -4,7 +4,7 @@ A drinks round tracker. An app that tracks the drinking consumption of a group.
 
 
 
-![app in use](client/assets/vidgif.gif)
+![app in use](client/assets/whos-round-fast.gif)
 <br>
 <h1>Features</h1>
 
