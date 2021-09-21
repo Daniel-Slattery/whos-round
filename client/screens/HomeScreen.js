@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { View, Text, FlatList, StyleSheet, ImageBackground } from 'react-native';
 import FriendList from '../components/FriendList';
@@ -9,8 +9,6 @@ import dummyData from '../userData.json';
 const backgroundImage = require('../assets/background.jpg');
 
 export default function HomeScreen({ navigation }) {
-
-  const socket = useRef(null);
 
   const usersOnline = useSelector(state => state.usersOnline);
   // const usersOnline = dummyData; // dummy data for testing

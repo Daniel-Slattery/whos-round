@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, FlatList, Button } from 'react-native'
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
 import { useDispatch } from 'react-redux';
 import PressableButton from './PressableButton';
 
