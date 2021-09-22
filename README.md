@@ -1,7 +1,6 @@
 <h1 id='Title'>Who's Round</h1>
 
-A drinks round tracker. An app that tracks the drinking consumption of a group.
-
+A React Native app built on the Expo platform. An app that tracks the drinking consumption of a group; keeps track of who's buying the next round and the drinks list.
 
 
 ![app in use](client/assets/whos-round-fast.gif)
