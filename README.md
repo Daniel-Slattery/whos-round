@@ -15,6 +15,12 @@ A React Native app built on the Expo platform. An app that tracks the drinking c
 
 • When all users drinking status is finished, the app will notify the buyer of the next round with a list of drinks to buy
 
+<h1>Features in Progress</h1>
+
+• User sign up and authentication
+
+• Database of users
+
 <h2 id='wireframes'>Wireframes</h2>
 
 ![responsive-page](client/assets/wireframes.PNG)

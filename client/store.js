@@ -17,8 +17,6 @@ function reducer(state = {nextRound: false, privateMessage: false}, action) {
       return { ...state, userFinished: action.data };
     case 'users_online':
       return { ...state, usersOnline: action.data };
-    case 'finished':
-      return { ...state, isFinished: action.data };
     default:
       return state;
   }
