@@ -49,9 +49,6 @@ io.on("connection", (socket) => {
         userSocket.nextRound = false;
         userSocket.socketId = socket.id;
         shuffleAssignNextRound(0, users);
-        createUsersOnline(users).length === 1
-          ? (userSocket.admin = true)
-          : (userSocket.admin = false);
         io.emit("action", {
           type: "users_online",
           data: createUsersOnline(users),
