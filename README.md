@@ -21,6 +21,8 @@ A React Native app built on the Expo platform. An app that tracks the drinking c
 
 • Database of users
 
+• Conversion from JavaScript into TypeScript
+
 <h2 id='wireframes'>Wireframes</h2>
 
 ![responsive-page](client/assets/wireframes.PNG)

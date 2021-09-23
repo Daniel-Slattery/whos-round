@@ -15,6 +15,7 @@
     "expo": "~42.0.1",
     "expo-font": "~9.2.1",
     "expo-status-bar": "~1.0.4",
+    "js-to-ts-converter": "^0.18.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@types/react-native": "~0.63.2",
     "react-native-svg-transformer": "^0.14.3"
   },
   "private": true

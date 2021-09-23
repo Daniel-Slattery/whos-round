@@ -4,7 +4,7 @@ const {
   nextRoundSocketId,
   allFinished,
   nextRoundReset,
-} = require("./userFunctions");
+} = require("./userFunctions.ts");
 
 const io = require("socket.io")();
 const uuidv1 = require("uuid/v1");
@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
     delete users[socket.id];
     io.emit("action", {
       type: "users_online",
-      data: createUsersOnline(users),
+      data: createUsersOnline(),
     });
   });
   socket.on("action", (action) => {
@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
         shuffleAssignNextRound(0, users);
         io.emit("action", {
           type: "users_online",
-          data: createUsersOnline(users),
+          data: createUsersOnline(),
         }); //io emit includes sender, socket emit only sends to others
         break;
       case "server/finished": //handling when beer icon is pressed
@@ -81,7 +81,7 @@ io.on("connection", (socket) => {
               .emit("action", { type: "user_finished", data: false });
         io.emit("action", {
           type: "users_online",
-          data: createUsersOnline(users),
+          data: createUsersOnline(),
         });
         break;
       case "server/nextRound":
@@ -91,7 +91,7 @@ io.on("connection", (socket) => {
         io.emit("action", { type: "user_finished", data: false });
         io.emit("action", {
           type: "users_online",
-          data: createUsersOnline(users),
+          data: createUsersOnline(),
         });
         break;
     }
