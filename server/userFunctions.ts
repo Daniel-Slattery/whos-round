@@ -1,3 +1,13 @@
+const users = {};
+
+const createUsersOnline = () => {
+  const values = Object.values(users);
+  const onlyWithUserNames = values.filter(
+    (user) => user.username !== undefined
+  );
+  return onlyWithUserNames;
+}
+
 const createUserAvatarUrl = () => {
     const rand1 = Math.round(Math.random() * 151);
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${rand1}.png`;
@@ -12,18 +22,18 @@ const shuffleAssignNextRound = (num, users) => {
     })
   }
 
-const nextRoundSocketId = (cb) => {
-    const nextRoundUser = cb().find((user) => user.nextRound);
+const nextRoundSocketId = () => {
+    const nextRoundUser = createUsersOnline().find((user) => user.nextRound);
     if (nextRoundUser.socketId) return nextRoundUser.socketId;
   }
 
-const allFinished = (cb) => {
-    const onlyWithUserNames = cb();
+const allFinished = () => {
+    const onlyWithUserNames = createUsersOnline();
     return onlyWithUserNames.every(el => el.isFinished === 'Finished ✔️')
   }
 
-const nextRoundReset = (cb) => {
-    const onlyWithUserNames = cb();
+const nextRoundReset = () => {
+    const onlyWithUserNames = createUsersOnline();
     onlyWithUserNames.forEach((user) => user.isFinished = 'Drinking  🍺');
     const nextRoundUser = onlyWithUserNames.find((user) => user.nextRound);
     currentNextRoundIndex = onlyWithUserNames.indexOf(nextRoundUser);
@@ -38,11 +48,13 @@ const nextRoundReset = (cb) => {
   }
 
   module.exports = {
-    createUserAvatarUrl,
-    shuffleAssignNextRound,
-    nextRoundSocketId,
-    nextRoundReset,
     allFinished,
+    createUserAvatarUrl,
+    createUsersOnline,
+    nextRoundReset,
+    nextRoundSocketId,
+    shuffleAssignNextRound,
+    users,
   }
 
 

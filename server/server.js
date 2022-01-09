@@ -1,25 +1,17 @@
 const {
-  createUserAvatarUrl,
-  shuffleAssignNextRound,
-  nextRoundSocketId,
   allFinished,
+  createUserAvatarUrl,
+  createUsersOnline,
   nextRoundReset,
+  nextRoundSocketId,
+  shuffleAssignNextRound,
+  users,
 } = require("./userFunctions.ts");
-
 const io = require("socket.io")();
 const uuidv1 = require("uuid/v1");
 
 console.log("Server Started! 🚀");
 
-const users = {};
-
-function createUsersOnline() {
-  const values = Object.values(users);
-  const onlyWithUserNames = values.filter(
-    (user) => user.username !== undefined
-  );
-  return onlyWithUserNames;
-}
 
 io.on("connection", (socket) => {
   users[socket.id] = { userId: uuidv1() };
