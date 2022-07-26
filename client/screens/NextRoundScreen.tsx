@@ -13,6 +13,8 @@ const NextRoundScreen = ({navigation}) => {
   const privateMessage = useSelector(state => state.privateMessage);
   const nextRound = useSelector(state => state.nextRound);
   const usersOnline = useSelector(state => state.usersOnline);
+
+  console.log('usersonline', usersOnline)
   // const usersOnline = dummyData; // dummy data for testing
   function whoBuying() {
     const nextRoundUser = usersOnline.find((u) => u.nextRound);

@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import createSocketIoMiddleware from 'redux-socket.io';
 import io from 'socket.io-client';
 
-const socket = io('http://192.168.0.152:3001')//may need to change
+const socket = io('http://localhost:3002')//may need to change
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
 function reducer(state = {nextRound: false, privateMessage: false}, action?) {

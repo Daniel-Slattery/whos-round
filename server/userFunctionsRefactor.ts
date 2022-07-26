@@ -59,12 +59,12 @@ export const nextRoundReset = () => {
 
   usersConnected.forEach(user => (user.isFinished = 'Drinking  🍺'))
 
-  usersConnected.forEach((user, index) => {
-    if (user.nextRound === true) {
-      user.nextRound = false
-      if (usersConnected[index + 1] >= usersConnected.length - 1) {
-        usersConnected[0].nextRound = true
-      } else usersConnected[index + 1].nextRound = true
-    }
-  })
+  const nextRoundUserIndex = usersConnected.indexOf(
+    usersConnected.find(user => user.nextRound)
+  )
+  usersConnected[nextRoundUserIndex].nextRound = false
+
+  if (nextRoundUserIndex >= usersConnected.length - 1) {
+    usersConnected[0].nextRound = true
+  } else usersConnected[nextRoundUserIndex + 1].nextRound = true
 }
