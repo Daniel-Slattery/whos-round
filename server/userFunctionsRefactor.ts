@@ -1,17 +1,28 @@
-type  User = {
-  socketId?: string;
-  username?: string;
-  nextRound?: boolean;
-  isFinished?: string;
-  avatar?: () => string;
+type User = {
+  avatar?: () => string
+  drink?: string
+  isFinished?: string
+  nextRound?: boolean
+  socketId?: string
+  username?: string
 }
 
 export const users = {}
 
+export const createNewUser = () => {
+  return {
+    avatar: createUserAvatarUrl(),
+    drink: '',
+    isFinished: 'Drinking  🍺',
+    nextRound: false,
+    socketId: '',
+    username: ''
+  }
+}
+
 export const createUsersOnline = () => {
   const values = Object.values(users)
-  const onlyWithUserNames: User[] = values.filter((user: User) => user.username !== undefined)
-  return onlyWithUserNames
+  return values.filter((user: User) => user.username !== undefined)
 }
 
 export const createUserAvatarUrl = () => {
@@ -20,49 +31,40 @@ export const createUserAvatarUrl = () => {
 }
 
 export const shuffleAssignNextRound = num => {
-  const values = Object.values(users)
-  const onlyWithUserNames = values.filter((user: User) => user.username !== undefined)
+  const usersConnected = createUsersOnline()
   let indexOfNextRound = Math.floor(
-    Math.random() * (onlyWithUserNames.length - num)
+    Math.random() * (usersConnected.length - num)
   )
-  onlyWithUserNames.map((user: User, index) => {
-    index === indexOfNextRound ? (user.nextRound = true) : (user.nextRound = false)
+  usersConnected.map((user: User, index) => {
+    index === indexOfNextRound
+      ? (user.nextRound = true)
+      : (user.nextRound = false)
   })
 }
 
 export const nextRoundSocketId = () => {
-  const nextRoundUser: {socketId?: string} = createUsersOnline().find((user: User) => user.nextRound)
+  const nextRoundUser: {socketId?: string} = createUsersOnline().find(
+    (user: User) => user.nextRound
+  )
   if (nextRoundUser.socketId) return nextRoundUser.socketId
 }
 
 export const allFinished = () => {
-  const onlyWithUserNames = createUsersOnline()
-  return onlyWithUserNames.every((el: {isFinished: string}) => el.isFinished === 'Finished ✔️')
+  const usersConnected = createUsersOnline()
+  return usersConnected.every((user: User) => user.isFinished === 'Finished ✔️')
 }
 
 export const nextRoundReset = () => {
-  const onlyWithUserNames: User[] = createUsersOnline()
-  onlyWithUserNames.forEach((user: User) => (user.isFinished = 'Drinking  🍺'))
-  const nextRoundUser = onlyWithUserNames.find((user: User) => user.nextRound)
-  const currentNextRoundIndex = onlyWithUserNames.indexOf(nextRoundUser)
-  if (onlyWithUserNames[currentNextRoundIndex].nextRound) {
-    onlyWithUserNames[currentNextRoundIndex].nextRound = false
-    if (currentNextRoundIndex === onlyWithUserNames.length - 1) {
-      onlyWithUserNames[0].nextRound = true
-    } else {
-      onlyWithUserNames[currentNextRoundIndex + 1].nextRound = true
-    }
-  }
-}
+  const usersConnected: User[] = createUsersOnline()
 
-export const createNewUser = () => {
-  const newUser = {
-    avatar: createUserAvatarUrl(),
-    drink: '',
-    isFinished: 'Drinking  🍺',
-    nextRound: false,
-    socketId: '',
-    username: ''
-  }
-  return newUser
+  usersConnected.forEach(user => (user.isFinished = 'Drinking  🍺'))
+
+  usersConnected.forEach((user, index) => {
+    if (user.nextRound === true) {
+      user.nextRound = false
+      if (usersConnected[index + 1] >= usersConnected.length - 1) {
+        usersConnected[0].nextRound = true
+      } else usersConnected[index + 1].nextRound = true
+    }
+  })
 }
