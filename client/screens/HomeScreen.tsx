@@ -4,7 +4,7 @@ import { View, Text, FlatList, StyleSheet, ImageBackground } from 'react-native'
 import FriendList from '../components/FriendList';
 import BeerIcon from '../components/BeerIcon';
 import HeaderLogo from '../components/HeaderLogo';
-import dummyData from '../userData.json';
+import dummyData from '../data/userData.json';
 
 const backgroundImage = require('../assets/background.jpg');
 

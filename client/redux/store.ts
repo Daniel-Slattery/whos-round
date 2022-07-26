@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import createSocketIoMiddleware from 'redux-socket.io'
 import io from 'socket.io-client'
-import { State, User } from './types'
+import { State, User } from '../types'
 
 const initialState: State = {
   nextRound: false,

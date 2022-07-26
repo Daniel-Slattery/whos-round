@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import {Server} from 'socket.io'
+import { Server } from 'socket.io'
 import http from 'http'
 import {
   allFinished,
@@ -95,5 +95,5 @@ io.on('connection', socket => {
 })
 
 server.listen(3002, () => {
-  console.log('SERVER IS RUNNING')
+  console.log('SERVER IS RUNNING 🚀')
 })
