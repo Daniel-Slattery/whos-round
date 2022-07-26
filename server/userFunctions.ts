@@ -1,54 +1,16 @@
-const users = {}
-
-const createUsersOnline = () => {
-  const values = Object.values(users)
-  const onlyWithUserNames = values.filter(user => user.username !== undefined)
-  return onlyWithUserNames
+type User = {
+  avatar?: () => string
+  drink?: string
+  isFinished?: string
+  nextRound?: boolean
+  socketId?: string
+  username?: string
 }
 
-const createUserAvatarUrl = () => {
-  const rand1 = Math.round(Math.random() * 151)
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${rand1}.png`
-}
+export const users = {}
 
-const shuffleAssignNextRound = num => {
-  const values = Object.values(users)
-  const onlyWithUserNames = values.filter(user => user.username !== undefined)
-  let indexOfNextRound = Math.floor(
-    Math.random() * (onlyWithUserNames.length - num)
-  )
-  onlyWithUserNames.map((u, index) => {
-    index === indexOfNextRound ? (u.nextRound = true) : (u.nextRound = false)
-  })
-}
-
-const nextRoundSocketId = () => {
-  const nextRoundUser = createUsersOnline().find(user => user.nextRound)
-  if (nextRoundUser.socketId) return nextRoundUser.socketId
-}
-
-const allFinished = () => {
-  const onlyWithUserNames = createUsersOnline()
-  return onlyWithUserNames.every(el => el.isFinished === 'Finished ✔️')
-}
-
-const nextRoundReset = () => {
-  const onlyWithUserNames = createUsersOnline()
-  onlyWithUserNames.forEach(user => (user.isFinished = 'Drinking  🍺'))
-  const nextRoundUser = onlyWithUserNames.find(user => user.nextRound)
-  currentNextRoundIndex = onlyWithUserNames.indexOf(nextRoundUser)
-  if (onlyWithUserNames[currentNextRoundIndex].nextRound) {
-    onlyWithUserNames[currentNextRoundIndex].nextRound = false
-    if (currentNextRoundIndex === onlyWithUserNames.length - 1) {
-      onlyWithUserNames[0].nextRound = true
-    } else {
-      onlyWithUserNames[currentNextRoundIndex + 1].nextRound = true
-    }
-  }
-}
-
-const createNewUser = () => {
-  const newUser = {
+export const createNewUser = () => {
+  return {
     avatar: createUserAvatarUrl(),
     drink: '',
     isFinished: 'Drinking  🍺',
@@ -56,15 +18,53 @@ const createNewUser = () => {
     socketId: '',
     username: ''
   }
-  return newUser
 }
 
-module.exports = {
-  allFinished,
-  createUserAvatarUrl,
-  createUsersOnline,
-  nextRoundReset,
-  nextRoundSocketId,
-  shuffleAssignNextRound,
-  users
+export const createUsersOnline = () => {
+  const values = Object.values(users)
+  return values.filter((user: User) => user.username !== undefined)
+}
+
+export const createUserAvatarUrl = () => {
+  const rand1 = Math.round(Math.random() * 151)
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${rand1}.png`
+}
+
+export const shuffleAssignNextRound = num => {
+  const usersConnected = createUsersOnline()
+  let indexOfNextRound = Math.floor(
+    Math.random() * (usersConnected.length - num)
+  )
+  usersConnected.map((user: User, index) => {
+    index === indexOfNextRound
+      ? (user.nextRound = true)
+      : (user.nextRound = false)
+  })
+}
+
+export const nextRoundSocketId = () => {
+  const nextRoundUser: {socketId?: string} = createUsersOnline().find(
+    (user: User) => user.nextRound
+  )
+  if (nextRoundUser.socketId) return nextRoundUser.socketId
+}
+
+export const allFinished = () => {
+  const usersConnected = createUsersOnline()
+  return usersConnected.every((user: User) => user.isFinished === 'Finished ✔️')
+}
+
+export const nextRoundReset = () => {
+  const usersConnected: User[] = createUsersOnline()
+
+  usersConnected.forEach(user => (user.isFinished = 'Drinking  🍺'))
+
+  const nextRoundUserIndex = usersConnected.indexOf(
+    usersConnected.find(user => user.nextRound)
+  )
+  usersConnected[nextRoundUserIndex].nextRound = false
+
+  if (nextRoundUserIndex >= usersConnected.length - 1) {
+    usersConnected[0].nextRound = true
+  } else usersConnected[nextRoundUserIndex + 1].nextRound = true
 }

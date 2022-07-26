@@ -1,4 +1,8 @@
-const {
+import express from 'express'
+import cors from 'cors'
+import {Server} from 'socket.io'
+import http from 'http'
+import {
   allFinished,
   createUserAvatarUrl,
   createUsersOnline,
@@ -6,14 +10,23 @@ const {
   nextRoundSocketId,
   shuffleAssignNextRound,
   users
-} = require('./userFunctions.ts')
-const io = require('socket.io')()
+} from './userFunctions'
 
-console.log('Server Started! 🚀')
+const app = express()
+
+app.use(cors())
+
+const server = http.createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:19006',
+    methods: ['GET', 'POST']
+  }
+})
 
 io.on('connection', socket => {
   users[socket.id] = {userId: socket.id}
-  console.log('users', users)
   const userSocket = users[socket.id]
   socket.on('disconnect', () => {
     userSocket.nextRound && shuffleAssignNextRound(1)
@@ -32,16 +45,6 @@ io.on('connection', socket => {
         })
         break
       case 'server/join':
-        console.log(`user ${action.inputName} connected`)
-        // userSocket = {
-        //   ...userSocket,
-        //   username: action.inputName,
-        //   drink: action.inputDrink,
-        //   avatar: createUserAvatarUrl(),
-        //   isFinished: 'Drinking  🍺',
-        //   nextRound: false,
-        //   socketId: socket.id
-        // }
         userSocket.username = action.inputName
         userSocket.drink = action.inputDrink
         userSocket.avatar = createUserAvatarUrl()
@@ -96,4 +99,6 @@ io.on('connection', socket => {
   })
 })
 
-io.listen(3001)
+server.listen(3002, () => {
+  console.log('SERVER IS RUNNING')
+})
