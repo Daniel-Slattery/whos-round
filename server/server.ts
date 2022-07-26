@@ -47,7 +47,6 @@ io.on('connection', socket => {
       case 'server/join':
         createNewUser(userSocket, action)
         shuffleAssignNextRound(0)
-        console.log('users', users)
         io.emit('action', {
           type: 'users_online',
           data: createUsersOnline()
@@ -60,13 +59,13 @@ io.on('connection', socket => {
         //check if all users are finished drinks
         if (allFinished()) {
           io.to(nextRoundSocketId()).emit('action', {
-            type: 'private_message',
+            type: 'target_buyer_socket',
             data: true
           })
           io.emit('action', {type: 'next_round', data: true})
         } else {
           io.to(nextRoundSocketId()).emit('action', {
-            type: 'private_message',
+            type: 'target_buyer_socket',
             data: false
           })
           io.emit('action', {type: 'next_round', data: false})
@@ -84,7 +83,7 @@ io.on('connection', socket => {
       case 'server/nextRound':
         nextRoundReset()
         io.emit('action', {type: 'next_round', data: false})
-        io.emit('action', {type: 'private_message', data: false})
+        io.emit('action', {type: 'target_buyer_socket', data: false})
         io.emit('action', {type: 'user_finished', data: false})
         io.emit('action', {
           type: 'users_online',
