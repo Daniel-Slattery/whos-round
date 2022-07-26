@@ -4,7 +4,7 @@ import {Server} from 'socket.io'
 import http from 'http'
 import {
   allFinished,
-  createUserAvatarUrl,
+  createNewUser,
   createUsersOnline,
   nextRoundReset,
   nextRoundSocketId,
@@ -45,13 +45,9 @@ io.on('connection', socket => {
         })
         break
       case 'server/join':
-        userSocket.username = action.inputName
-        userSocket.drink = action.inputDrink
-        userSocket.avatar = createUserAvatarUrl()
-        userSocket.isFinished = 'Drinking  🍺'
-        userSocket.nextRound = false
-        userSocket.socketId = socket.id
+        createNewUser(userSocket, action)
         shuffleAssignNextRound(0)
+        console.log('users', users)
         io.emit('action', {
           type: 'users_online',
           data: createUsersOnline()

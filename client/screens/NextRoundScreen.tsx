@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import YourRound from '../components/YourRound';
 import NextRoundWaiting from '../components/NextRoundWaiting';
 import HeaderLogo from '../components/HeaderLogo';
-import dummyData from '../userData.json';
 const backgroundImage = require('../assets/background.jpg');
 
 
@@ -14,8 +13,6 @@ const NextRoundScreen = ({navigation}) => {
   const nextRound = useSelector(state => state.nextRound);
   const usersOnline = useSelector(state => state.usersOnline);
 
-  console.log('usersonline', usersOnline)
-  // const usersOnline = dummyData; // dummy data for testing
   function whoBuying() {
     const nextRoundUser = usersOnline.find((u) => u.nextRound);
     return nextRoundUser.username;
