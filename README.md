@@ -2,6 +2,18 @@
 
 A React Native app built on the Expo platform. An app that tracks the drinking consumption of a group; keeps track of who's buying the next round and the drinks list.
 
+<h1>Tech Stack</h1>
+
+<div align="center">
+<img alt="typescript logo" width="40px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/512px-Typescript_logo_2020.svg.png" />
+<img alt="react native logo" width="40px" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" />
+<img alt="socket-io logo" width="40px" src="https://socket.io/images/logo.svg"/>
+<img alt="redux logo" width="45px" src="https://redux.js.org/img/redux.svg"/>
+<img alt="expo logo" height="45px" src="https://www.svgrepo.com/show/353723/expo-icon.svg"/>
+<img alt="figma logo" height="40px" src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg"/>
+</div>
+
+<br>
 
 ![app in use](client/assets/whos-round-fast.gif)
 <br>
@@ -71,18 +83,4 @@ cd client
 npm start
 ```
 
-
-<h1>Tech Stack</h1>
-
-• React Native
-
-• Expo
-
-• Redux
-
-• SocketIO
-
-• Nodejs
-
-<br>
 
