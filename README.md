@@ -7,9 +7,9 @@ A React Native app built on the Expo platform. An app that tracks the drinking c
 <div align="center">
 <img alt="typescript logo" width="40px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/512px-Typescript_logo_2020.svg.png" />
 <img alt="react native logo" width="40px" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" />
-<img alt="socket-io logo" width="40px" src="https://socket.io/images/logo.svg"/>
+<img alt="socket-io logo" width="40px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Socket-io.svg/800px-Socket-io.svg.png"/>
 <img alt="redux logo" width="45px" src="https://redux.js.org/img/redux.svg"/>
-<img alt="expo logo" height="45px" src="https://www.svgrepo.com/show/353723/expo-icon.svg"/>
+<img alt="expo logo" height="45px" src="https://play-lh.googleusercontent.com/algsmuhitlyCU_Yy3IU7-7KYIhCBwx5UJG4Bln-hygBjjlUVCiGo1y8W5JNqYm9WW3s"/>
 <img alt="figma logo" height="40px" src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg"/>
 </div>
 
