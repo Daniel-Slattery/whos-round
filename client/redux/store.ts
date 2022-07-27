@@ -10,7 +10,7 @@ const initialState: State = {
   usersOnline: []
 }
 
-const socket = io('http://localhost:3002') //may need to change
+const socket = io('http://localhost:3002')
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/')
 
 const reducer = (state = initialState, action?) => {

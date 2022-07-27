@@ -16,7 +16,7 @@ A React Native app built on the Expo platform. An app that tracks the drinking c
 <br>
 
 <div align="center">
-  <img alt="figma logo"  src="client/assets/whos-round-fast.gif"/>
+  <img alt="app in use" height="400px"  src="client/assets/whos-round-fast.gif"/>
 </div>
 <br>
 <h1>Features</h1>
@@ -35,9 +35,10 @@ A React Native app built on the Expo platform. An app that tracks the drinking c
 
 • Database of users
 
-• Conversion from JavaScript into TypeScript
+<br>
 
-<h2 id='wireframes'>Wireframes</h2>
+
+<h1 id='wireframes'>Wireframes</h1>
 
 ![responsive-page](client/assets/wireframes.PNG)
 
@@ -46,41 +47,30 @@ A React Native app built on the Expo platform. An app that tracks the drinking c
 
 These instructions will help you setup a local development instance of the app.
 
-<h2 id='clone'>Get the repo</h2>
+- <h3 id='clone'>Clone repo</h3>
 
 ```
 git clone https://github.com/Daniel-Slattery/whos-round
-```
-
-<h2 >Navigate to the folder</h2>
-
-```
 cd whos-round
 ```
 
-<h2>Install the dependencies</h2>
+
+- <h3>Install the dependencies</h3>
 
 ```
-cd client-react
-npm i
-cd ../server
-npm i
+cd client && npm install
+cd ../server && npm install
 ```
 
-<h2>Run server</h2>
+- <h3>Run servers</h3>
 
 ```
-node server.js
+cd server && npm start
+```
+- Open another terminal tab
+```
+cd client && npm start
 ```
 
-<h2>Start new terminal and navigate to client</h2>
 
-```
-cd client
-```
-
-<h2>Run client to start app</h2>
-
-```
-npm start
-```
+- App should now be running on `http://localhost:19006/`
