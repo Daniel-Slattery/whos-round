@@ -1,9 +1,9 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
-import { useDispatch } from 'react-redux';
-import PressableButton from './PressableButton';
+import React from "react";
+import { View, Text, StyleSheet, Image, FlatList } from "react-native";
+import { useDispatch } from "react-redux";
+import PressableButton from "./PressableButton";
 
-const drinksImage = require('../assets/drinks.png');
+const drinksImage = require("../assets/drinks.png");
 
 const YourRound = ({ usersOnline, whoBuying }) => {
   const dispatch = useDispatch();
@@ -11,11 +11,11 @@ const YourRound = ({ usersOnline, whoBuying }) => {
   function drinksList() {
     const drinksObject = {};
     usersOnline.forEach((u) => {
-      drinksObject[u.drink] = (drinksObject[u.drink]+1) || 1;
-    })
+      drinksObject[u.drink] = drinksObject[u.drink] + 1 || 1;
+    });
     const drinksArray = [];
     for (const drink in drinksObject) {
-      drinksArray.push(`${drinksObject[drink]} x ${drink}`)
+      drinksArray.push(`${drinksObject[drink]} x ${drink}`);
     }
     return drinksArray;
   }
@@ -26,67 +26,75 @@ const YourRound = ({ usersOnline, whoBuying }) => {
         <Text style={styles.h2Text}>Hi {whoBuying}</Text>
         <View>
           <Text style={styles.whoBuyingText}>Go Buy the Round!</Text>
-          <FlatList data={drinksList()}
-          style={styles.drinkList}
-          renderItem={({item}) => {
-            return (
-              <View>
-                <Text style={ styles.text }>{item}</Text>
-              </View>
-            );
-          }}
+          <FlatList
+            data={drinksList()}
+            style={styles.drinkList}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <Text style={styles.text}>{item}</Text>
+                </View>
+              );
+            }}
           />
         </View>
       </View>
       <View style={styles.button}>
-
-        <PressableButton title='Next Round'
-          onPress={() => {dispatch({type: 'server/nextRound'})}}/>
-        </View>
-      <Image style={styles.drinksImage} source={drinksImage} resizeMode='contain' />
+        <PressableButton
+          title="Next Round"
+          onPress={() => {
+            dispatch({ type: "server/nextRound" });
+          }}
+        />
+      </View>
+      <Image
+        style={styles.drinksImage}
+        source={drinksImage}
+        resizeMode="contain"
+      />
     </View>
-  )
-}
+  );
+};
 
-export default YourRound
+export default YourRound;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fad369',
+    backgroundColor: "#fad369",
     borderTopStartRadius: 20,
     borderTopEndRadius: 20,
     padding: 20,
     zIndex: 2,
-    opacity: 0.9
+    opacity: 0.9,
   },
   h2Text: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     marginVertical: 10,
     marginHorizontal: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   whoBuyingText: {
     marginVertical: 10,
-    textAlign: 'center'
+    textAlign: "center",
   },
   button: {
     zIndex: 2,
-    opacity: 0.9
+    opacity: 0.9,
   },
   drinksImage: {
     width: 300,
     height: 300,
     marginTop: 20,
     top: -200,
-    zIndex: 1
+    zIndex: 1,
   },
   text: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 20,
-    margin: 10
+    margin: 10,
   },
   drinkList: {
     marginVertical: 20,
-  }
-})
+  },
+});

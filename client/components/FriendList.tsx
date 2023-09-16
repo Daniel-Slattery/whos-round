@@ -1,67 +1,71 @@
-import React from 'react'
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 
 const FriendList = ({ usersOnline }) => {
-
   return (
-    <View style={{justifyContent: 'center'}}>
+    <View style={{ justifyContent: "center" }}>
       <FlatList
         data={usersOnline}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <View>
               {item.nextRound ? (
                 <View>
                   <Text style={styles.nextRoundText}>NEXT ROUND</Text>
                   <View style={styles.itemsContainerNextRound}>
-                    <Image style={styles.avatarImage} source= {{ uri: item.avatar }}/>
-                    <View style={ styles.avatarContainer }>
-                      <Text style={ styles.text }>{item.username}</Text>
-                      <Text style={ styles.text }>{item.drink}</Text>
-                      <Text style={ styles.text }>{item.isFinished}</Text>
+                    <Image
+                      style={styles.avatarImage}
+                      source={{ uri: item.avatar }}
+                    />
+                    <View style={styles.avatarContainer}>
+                      <Text style={styles.text}>{item.username}</Text>
+                      <Text style={styles.text}>{item.drink}</Text>
+                      <Text style={styles.text}>{item.isFinished}</Text>
                     </View>
                   </View>
                 </View>
               ) : (
                 <View style={styles.itemsContainer}>
-                  <Image style={styles.avatarImage} source= {{ uri: item.avatar }}/>
-                  <View style={ styles.avatarContainer }>
-                    <Text style={ styles.text }>{item.username}</Text>
-                    <Text style={ styles.text }>{item.drink}</Text>
-                    <Text style={ styles.text }>{item.isFinished}</Text>
+                  <Image
+                    style={styles.avatarImage}
+                    source={{ uri: item.avatar }}
+                  />
+                  <View style={styles.avatarContainer}>
+                    <Text style={styles.text}>{item.username}</Text>
+                    <Text style={styles.text}>{item.drink}</Text>
+                    <Text style={styles.text}>{item.isFinished}</Text>
                   </View>
                 </View>
               )}
             </View>
           );
         }}
-        keyExtractor={item => item.userId}
+        keyExtractor={(item) => item.userId}
       />
     </View>
-  )
-}
+  );
+};
 
-export default FriendList
+export default FriendList;
 
 const styles = StyleSheet.create({
   itemsContainer: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   itemsContainerNextRound: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'white',
+    flexDirection: "row",
+    backgroundColor: "white",
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: "#26ada2"
+    borderColor: "#26ada2",
   },
   nextRoundText: {
     color: "#26ada2",
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: 10,
-    marginBottom: -4
-
+    marginBottom: -4,
   },
   avatarImage: {
     width: 75,
@@ -69,12 +73,12 @@ const styles = StyleSheet.create({
   },
   avatarContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   text: {
     fontSize: 20,
-    paddingHorizontal: 10
-  }
-})
+    paddingHorizontal: 10,
+  },
+});
